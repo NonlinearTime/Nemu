@@ -135,17 +135,17 @@ static int cmd_x(char *args) {
   char *hex = strtok(NULL, " ");
   paddr_t p;
   sscanf(hex, "%x", &p);
-  for (i = 0 ; i < n ; i = i + 4) {
-    int cxt = paddr_read(p, 4);
-    int j;
-    for (j = 0 ; j < 4 ; ++j) {
-      printf("%02x ", cxt & 0xff);
-      cxt = cxt >> 8;
-    }
-     p += 4;
-  }
+  // for (i = 0 ; i < n ; i = i + 4) {
+  //   int cxt = paddr_read(p, 4);
+  //   int j;
+  //   for (j = 0 ; j < 4 ; ++j) {
+  //     printf("%02x ", cxt & 0xff);
+  //     cxt = cxt >> 8;
+  //   }
+  //    p += 4;
+  // }
 
-  for (; i < n; ++i) {
+  for (i = 0; i < n; ++i) {
     int cxt = paddr_read(p, 1);
     printf("%02x ", cxt);
   }
