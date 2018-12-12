@@ -7,6 +7,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include "cpu/decode.h"
+
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -53,7 +55,7 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "Execute i steps", cmd_si},
-  { "info", "Check the information of registers or watch points, usage: r - regs\tw - wps", cmd_info},
+  { "info", "Check the information of registers or watch points, usage: r - regs  w - wps", cmd_info},
 
 };
 
@@ -101,8 +103,18 @@ static int cmd_info(char *args) {
     return -1;
   } else {
     if (strcmp(arg, "r") == 0) {
+      printf("eax %x %d\n", reg_w(R_EAX), reg_w(R_EAX));
+      printf("ecx %x %d\n", reg_w(R_ECX), reg_w(R_ECX));
+      printf("edx %x %d\n", reg_w(R_EDX), reg_w(R_EDX));
+      printf("ebx %x %d\n", reg_w(R_EBX), reg_w(R_EBX));
+      printf("esp %x %x\n", reg_w(R_ESP), reg_w(R_ESP));
+      printf("ebp %x %x\n", reg_w(R_EBP), reg_w(R_EBP));
+      printf("esi %x %d\n", reg_w(R_ESI), reg_w(R_ESI));
+      printf("edi %x %d\n", reg_w(R_EDI), reg_w(R_EDI));
+      printf("eip %x %x %s\n", reg_w(R_EDI), reg_w(R_EDI), decoding.assembly);
       return 0;
     } else if (strcmp(arg, "w") == 0) {
+
       return 0;
     } else {
       printf("Unknown information type.\n");
