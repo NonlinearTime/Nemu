@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -51,6 +53,7 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "Execute i steps", cmd_si},
+  { "info", "Check the information of registers or watch points, usage:", cmd_info},
 
 };
 
@@ -86,11 +89,29 @@ static int cmd_si(char *args) {
     cpu_exec(1);
   } else {
     int steps = atoi(arg);
-    printf("%d\n", steps);
     cpu_exec(steps);
   }
   return 0;
 }
+
+static int cmd_info(char *args) {
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    return -1;
+  } else {
+    if (strcmp(arg, "r") == 0) {
+      return 0;
+    } else if (strcmp(arg, "w") == 0) {
+      return 0;
+    } else {
+      printf("Unknown information type.\n");
+      return -1;
+    }
+  }
+
+}
+
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
