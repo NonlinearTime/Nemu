@@ -53,7 +53,7 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "Execute i steps", cmd_si},
-  { "info", "Check the information of registers or watch points, usage:", cmd_info},
+  { "info", "Check the information of registers or watch points, usage: r - regs\tw - wps", cmd_info},
 
 };
 
