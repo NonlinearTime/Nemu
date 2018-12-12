@@ -150,6 +150,8 @@ static int cmd_x(char *args) {
     printf("%x ", cxt);
   }
 
+  printf("\n");
+
   return 0;
 }
 
