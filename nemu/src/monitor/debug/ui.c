@@ -148,6 +148,7 @@ static int cmd_x(char *args) {
   for (i = 0; i < n; ++i) {
     int cxt = paddr_read(p, 1);
     printf("%02x ", cxt);
+    p += 1;
   }
 
   printf("\n");
