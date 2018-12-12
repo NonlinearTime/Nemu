@@ -118,7 +118,7 @@ static int cmd_info(char *args) {
       return 0;
     } else {
       printf("Unknown information type.\n");
-      return -1;
+      return 0;
     }
   }
 
