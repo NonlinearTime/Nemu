@@ -44,6 +44,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -56,6 +58,7 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Execute i steps", cmd_si},
   { "info", "Check the information of registers or watch points, usage: r - regs  w - wps", cmd_info},
+  { "x", "Check n bytes from the given address, usage: x n expr", cmd_x}, 
 
 };
 
@@ -124,6 +127,17 @@ static int cmd_info(char *args) {
 
 }
 
+static int cmd_x(char *args) {
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) return 0;
+  // int n = atoi(arg);
+  char *hex = strtok(NULL, " ");
+  paddr_t p;
+  sscanf(hex, "%x", &p);
+  printf("%d\n", p);
+
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
