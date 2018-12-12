@@ -1,0 +1,4 @@
+NAME = access
+SRCS = tests/access.c
+LIBS += klib
+include /home/haines/Documents/PA-2018/ics2018/nexus-am/Makefile.app
