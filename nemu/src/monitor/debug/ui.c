@@ -100,7 +100,7 @@ static int cmd_info(char *args) {
   char *arg = strtok(NULL, " ");
 
   if (arg == NULL) {
-    return -1;
+    return 0;
   } else {
     if (strcmp(arg, "r") == 0) {
       printf("eax %x %d\n", reg_w(R_EAX), reg_w(R_EAX));
