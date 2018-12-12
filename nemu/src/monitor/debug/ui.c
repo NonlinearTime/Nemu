@@ -111,7 +111,7 @@ static int cmd_info(char *args) {
       printf("ebp %x %x\n", reg_w(R_EBP), reg_w(R_EBP));
       printf("esi %x %d\n", reg_w(R_ESI), reg_w(R_ESI));
       printf("edi %x %d\n", reg_w(R_EDI), reg_w(R_EDI));
-      printf("eip %x %x %s\n", reg_w(R_EDI), reg_w(R_EDI), decoding.assembly);
+      printf("eip %x %x %s\n", cpu.eip, cpu.eip, decoding.assembly);
       return 0;
     } else if (strcmp(arg, "w") == 0) {
 
