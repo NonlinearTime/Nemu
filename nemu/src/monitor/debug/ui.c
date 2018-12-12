@@ -134,7 +134,7 @@ static int cmd_x(char *args) {
   char *hex = strtok(NULL, " ");
   paddr_t p;
   sscanf(hex, "%x", &p);
-  printf("%d\n", p);
+  printf("%x\n", p);
 
   return 0;
 }
