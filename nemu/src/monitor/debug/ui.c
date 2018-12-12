@@ -130,11 +130,25 @@ static int cmd_info(char *args) {
 static int cmd_x(char *args) {
   char *arg = strtok(NULL, " ");
   if (arg == NULL) return 0;
-  // int n = atoi(arg);
+  int n = atoi(arg);
+  int i;
   char *hex = strtok(NULL, " ");
   paddr_t p;
   sscanf(hex, "%x", &p);
-  printf("%x\n", p);
+  for (i = 0 ; i < n ; i = i + 4) {
+    int cxt = paddr_read(p, 4);
+    int j;
+    for (j = 0 ; j < 4 ; ++j) {
+      printf("%x ", cxt & 0xff);
+      cxt = cxt >> 8;
+    }
+     p += 4;
+  }
+
+  for (; i < n; ++i) {
+    int cxt = paddr_read(p, 1);
+    printf("%x ", cxt);
+  }
 
   return 0;
 }
