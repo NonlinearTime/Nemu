@@ -139,7 +139,7 @@ static int cmd_x(char *args) {
     int cxt = paddr_read(p, 4);
     int j;
     for (j = 0 ; j < 4 ; ++j) {
-      printf("%x ", cxt & 0xff);
+      printf("%2x ", cxt & 0xff);
       cxt = cxt >> 8;
     }
      p += 4;
@@ -147,7 +147,7 @@ static int cmd_x(char *args) {
 
   for (; i < n; ++i) {
     int cxt = paddr_read(p, 1);
-    printf("%x ", cxt);
+    printf("%2x ", cxt);
   }
 
   printf("\n");
