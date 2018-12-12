@@ -38,6 +38,8 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -48,6 +50,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "Execute i steps", cmd_si},
 
 };
 
@@ -72,6 +75,19 @@ static int cmd_help(char *args) {
       }
     }
     printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_si(char *args) {
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    cpu_exec(1);
+  } else {
+    int steps = atoi(arg);
+    printf("%d\n", steps);
+    cpu_exec(steps);
   }
   return 0;
 }
