@@ -212,7 +212,7 @@ uint32_t eval(int p, int q) {
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
     if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) {
-      printf("main op pos: %d\n", op_pos);printf("1\n"); 
+      printf("main op pos: %d\n", op_pos);printf("%u %u\n", val_l, val_r); 
       return EVAL_ERROR;
     }
     switch(tokens[op_pos].type) {
