@@ -5,9 +5,14 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
+
+#define EVAL_ERROR 0xffffffff
+
+uint32_t eval(int p, int q);
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ, TK_DEC
 
   /* TODO: Add more token types */
 
@@ -25,7 +30,12 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
-  {"-", '-'},                //subtract 
+  {"\\-", '-'},         // subtract 
+  {"\\*", '*'},         // multiple
+  {"/", '/'},           // divide
+  {"\\(", '('},         // left parentheses
+  {"\\)", ')'},         // right parentheses
+  {"[0-9]+", TK_DEC},   // Decimal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -57,6 +67,12 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
+static void my_strcpy(char *dest, char *src, int n) {
+  strncpy(dest, src, n);
+  dest[n] = '\0';
+  return;
+}
+
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -81,10 +97,18 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_DEC: {
+            tokens[nr_token].type = TK_DEC;
+            my_strcpy(tokens[nr_token].str, e + position, substr_len);
+            break;
+          };
+          case TK_NOTYPE: break;
+          default: {
+            tokens[nr_token].type = rules[i].token_type;
+          };
         }
 
-        break;
+        nr_token += 1;
       }
     }
 
@@ -97,6 +121,10 @@ static bool make_token(char *e) {
   return true;
 }
 
+static inline bool check_parentheses(int p, int q) {
+  return tokens[p].type == '(' && tokens[q].type == ')';
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -104,7 +132,55 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
+  uint32_t res = eval(0, nr_token - 1);
+  *success = res != EVAL_ERROR;
+  if (*success) printf("%d\n", res);
   return 0;
+}
+
+static int find_main_op(int p, int q) {
+  int i ;
+  int pos = 0;
+  int priority = 0;
+  for (i = p; i < q; ++i) {
+    int t = tokens[i].type;
+    if (t == TK_DEC) continue;
+    else if (t == '(') break;
+    else if (t == '*' || t == '/') {
+      if (priority < 1) {
+        priority = 2;
+      } else if (priority == 2) {
+        pos = i;
+      }
+    }
+    else if (t == '+' || t == '-') {
+      pos = i;
+      priority = 1;
+    }
+  }
+  return pos;
+}
+
+uint32_t eval(int p, int q) {
+  if (p > q) {
+    printf("Bad expression.\n");
+    return EVAL_ERROR;
+  } else if (p == q) {
+    assert(tokens[p].type == TK_DEC);
+    return atoi(tokens[p].str);
+  } else if (check_parentheses(p, q)) {
+    return eval(p + 1, q - 1);
+  } else {
+    int op_pos = find_main_op(p, q);
+    uint32_t val_l = eval(p, op_pos - 1);
+    uint32_t val_r = eval(op_pos + 1, q);
+    if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) return EVAL_ERROR;
+    switch(tokens[op_pos].type) {
+      case '+': return val_l + val_r;
+      case '-': return val_l - val_r;
+      case '*': return val_l * val_r;
+      case '/': return val_l / val_r;
+      default : return EVAL_ERROR;
+    }
+  }
 }

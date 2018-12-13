@@ -46,6 +46,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -59,6 +61,7 @@ static struct {
   { "si", "Execute i steps", cmd_si},
   { "info", "Check the information of registers or watch points, usage: r - regs  w - wps", cmd_info},
   { "x", "Check n bytes from the given address, usage: x n expr", cmd_x}, 
+  { "p", "Calculate the expression in decimal, usage: p [expr]", cmd_p},
 
 };
 
@@ -146,6 +149,13 @@ static int cmd_x(char *args) {
 
   return 0;
 }
+
+static int cmd_p(char *args) {
+  bool success;
+  expr(args, &success);
+  return 0;
+}
+
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
