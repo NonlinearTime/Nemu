@@ -21,21 +21,22 @@ enum {
 static struct rule {
   char *regex;
   int token_type;
+  int priority;
 } rules[] = {
 
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
-  {"\\-", '-'},         // subtract 
-  {"\\*", '*'},         // multiple
-  {"/", '/'},           // divide
-  {"\\(", '('},         // left parentheses
-  {"\\)", ')'},         // right parentheses
-  {"[0-9]+", TK_DEC},   // Decimal
+  {" +", TK_NOTYPE, 0},    // spaces
+  {"\\+", '+', 4},         // plus
+  {"==", TK_EQ, 7},        // equal
+  {"\\-", '-', 4},         // subtract 
+  {"\\*", '*', 3},         // multiple
+  {"/", '/', 3},           // divide
+  {"\\(", '(', 1},         // left parentheses
+  {"\\)", ')', 1},         // right parentheses
+  {"[0-9]+", TK_DEC, 0},   // Decimal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -62,6 +63,7 @@ void init_regex() {
 typedef struct token {
   int type;
   char str[32];
+  int priority;
 } Token;
 
 Token tokens[1080];
@@ -105,6 +107,7 @@ static bool make_token(char *e) {
           case TK_NOTYPE: break;
           default: {
             tokens[nr_token].type = rules[i].token_type;
+            tokens[nr_token].priority = rules[i].priority;
           };
         }
 
@@ -169,11 +172,12 @@ uint32_t expr(char *e, bool *success) {
 static int find_main_op(int p, int q) {
   int i ;
   int pos = 0;
-  int priority = 0;
+  int priority = -1;
   int in_parentheses = 0;
   
   for (i = p; i < q; ++i) {
     int t = tokens[i].type;
+    int p = tokens[i].priority;
     if (t == TK_DEC) continue;
     else if (t == '(') {
       in_parentheses++;
@@ -181,16 +185,11 @@ static int find_main_op(int p, int q) {
     } else if (t == ')') {
       in_parentheses--;
       continue;
-    } else if ((t == '*' || t == '/') && in_parentheses == 0) {
-      if (priority < 1) {
-        priority = 2;
-        pos = i;
-      } else if (priority == 2) {
+    } else {
+      if (p >= priority) {
+        priority = p;
         pos = i;
       }
-    } else if ((t == '+' || t == '-') && in_parentheses == 0) {
-      pos = i;
-      priority = 1;
     }
   }
   return pos;

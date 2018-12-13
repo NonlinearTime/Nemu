@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
+  
   for (i = 0; i < loop; i ++) {
     gen_rand_expr();
     // printf("%s %d\n", buf, current_pos);
