@@ -140,6 +140,7 @@ static inline bool check_parentheses(int p, int q) {
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
+    printf("Bad expression.\n");
     return 0;
   }
 
