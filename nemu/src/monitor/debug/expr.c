@@ -29,11 +29,11 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE, 0},    // spaces
-  {"\\+", '+', 4},         // plus
+  {"\\+", '+', 5},         // plus
   {"==", TK_EQ, 7},        // equal
-  {"\\-", '-', 4},         // subtract 
+  {"\\-", '-', 5},         // subtract 
   {"\\*", '*', 3},         // multiple
-  {"/", '/', 3},           // divide
+  {"/", '/', 4},           // divide
   {"\\(", '(', 1},         // left parentheses
   {"\\)", ')', 1},         // right parentheses
   {"[0-9]+", TK_DEC, 0},   // Decimal
