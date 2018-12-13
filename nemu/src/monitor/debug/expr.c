@@ -156,6 +156,7 @@ static int find_main_op(int p, int q) {
   int i ;
   int pos = 0;
   int priority = 0;
+  printf("%d, %d\n", p, q);
   for (i = p; i < q; ++i) {
     int t = tokens[i].type;
     if (t == TK_DEC) continue;
