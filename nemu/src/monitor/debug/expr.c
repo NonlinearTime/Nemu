@@ -162,7 +162,7 @@ uint32_t expr(char *e, bool *success) {
   uint32_t res = eval(0, nr_token - 1);
   *success = res != EVAL_ERROR;
   if (*success) { 
-    printf("%u\n", res);
+    // printf("%u\n", res);
     return res;
   }
   else printf("Failed\n");
@@ -196,27 +196,27 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("%d, %d\n", p, q);
+  // printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
-    printf("%u\n", atoi(tokens[p].str));
+    // printf("%u\n", atoi(tokens[p].str));
     return (uint32_t)atoi(tokens[p].str);
   } else if (check_parentheses(p, q)) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
-    printf("main op pos: %d\n", op_pos);
+    // printf("main op pos: %d\n", op_pos);
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
     if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) return EVAL_ERROR;
     switch(tokens[op_pos].type) {
-      case '+': printf("%u\n", val_l + val_r); return val_l + val_r;
-      case '-': printf("%u\n", val_l - val_r); return val_l - val_r;
-      case '*': printf("%u\n", val_l * val_r); return val_l * val_r;
-      case '/': if (val_r == 0) return EVAL_ERROR; else printf("%u\n", val_l / val_r); return val_l / val_r;
+      case '+': /*printf("%u\n", val_l + val_r);*/ return val_l + val_r;
+      case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
+      case '*': /*printf("%u\n", val_l * val_r);*/ return val_l * val_r;
+      case '/': if (val_r == 0) return EVAL_ERROR; else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
       default : return EVAL_ERROR;
     }
   }
