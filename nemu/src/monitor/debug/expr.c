@@ -100,7 +100,6 @@ static bool make_token(char *e) {
           case TK_DEC: {
             tokens[nr_token].type = TK_DEC;
             my_strcpy(tokens[nr_token].str, e + position, substr_len);
-            printf("%s %d\n", tokens[nr_token].str, substr_len);
             break;
           };
           case TK_NOTYPE: break;
@@ -112,6 +111,10 @@ static bool make_token(char *e) {
         nr_token += 1;
         break;
       }
+    }
+
+    for (i = 0 ; i < nr_token ; ++i) {
+      printf("%s \n", tokens[i].str);
     }
 
     if (i == NR_REGEX) {
