@@ -211,12 +211,12 @@ uint32_t eval(int p, int q) {
     // printf("main op pos: %d\n", op_pos);
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
-    if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) return EVAL_ERROR;
+    if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) {printf("1\n"); return EVAL_ERROR;}
     switch(tokens[op_pos].type) {
       case '+': /*printf("%u\n", val_l + val_r);*/ return val_l + val_r;
       case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
       case '*': /*printf("%u\n", val_l * val_r);*/ return val_l * val_r;
-      case '/': if (val_r == 0) {printf("1\n"); return EVAL_ERROR;} else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
+      case '/': if (val_r == 0) return EVAL_ERROR; else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
       default : return EVAL_ERROR;
     }
   }
