@@ -168,6 +168,7 @@ uint32_t eval(int p, int q) {
     return EVAL_ERROR;
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
+    printf("%d\n", atoi(tokens[p].str));
     return atoi(tokens[p].str);
   } else if (check_parentheses(p, q)) {
     return eval(p + 1, q - 1);
