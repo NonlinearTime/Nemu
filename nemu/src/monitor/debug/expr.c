@@ -203,7 +203,7 @@ uint32_t eval(int p, int q) {
     return EVAL_ERROR;
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
-    // printf("%d\n", atoi(tokens[p].str));
+    printf("%u\n", atoi(tokens[p].str));
     return (uint32_t)atoi(tokens[p].str);
   } else if (check_parentheses(p, q)) {
     return eval(p + 1, q - 1);
@@ -214,10 +214,10 @@ uint32_t eval(int p, int q) {
     uint32_t val_r = eval(op_pos + 1, q);
     if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) return EVAL_ERROR;
     switch(tokens[op_pos].type) {
-      case '+': return val_l + val_r;
-      case '-': return val_l - val_r;
-      case '*': return val_l * val_r;
-      case '/': if (val_r == 0) return EVAL_ERROR; else return val_l / val_r;
+      case '+': printf("%u\n", val_l + val_r); return val_l + val_r;
+      case '-': printf("%u\n", val_l - val_r); return val_l - val_r;
+      case '*': printf("%u\n", val_l * val_r); return val_l * val_r;
+      case '/': if (val_r == 0) return EVAL_ERROR; else printf("%u\n", val_l / val_r); return val_l / val_r;
       default : return EVAL_ERROR;
     }
   }
