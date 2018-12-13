@@ -7,7 +7,7 @@
 #include <regex.h>
 #include <stdlib.h>
 
-#define EVAL_ERROR 0xffffffff
+#define EVAL_ERROR 0x0fffffff
 
 uint32_t eval(int p, int q);
 
