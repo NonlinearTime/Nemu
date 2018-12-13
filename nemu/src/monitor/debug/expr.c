@@ -64,7 +64,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-Token tokens[32];
+Token tokens[1080];
 int nr_token;
 
 static void my_strcpy(char *dest, char *src, int n) {
@@ -177,7 +177,6 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
@@ -197,7 +196,7 @@ uint32_t eval(int p, int q) {
       case '+': return val_l + val_r;
       case '-': return val_l - val_r;
       case '*': return val_l * val_r;
-      case '/': return val_l / val_r;
+      case '/': if (val_r == 0) return EVAL_ERROR; else return val_l / val_r;
       default : return EVAL_ERROR;
     }
   }

@@ -5,10 +5,54 @@
 #include <assert.h>
 #include <string.h>
 
+static int choose(int n) {
+  int ind = rand() % n;
+  return ind;
+}
+
 // this should be enough
 static char buf[65536];
+
+int current_pos = 0;
+
+static char ops[] = {
+  '+', '-', '*', '/'
+};
+
+static void inline gen_num() {
+  char nbuf[32];
+  int num = rand();
+  sprintf(nbuf, "%d", num);
+  int i = 0;
+  while(nbuf[i]) buf[current_pos++] = nbuf[i++];
+}
+
+static void inline gen_rand_op() {
+  int ind = choose(4);
+  buf[current_pos++] = ops[ind];
+  return;
+}
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+  switch(choose(3)) {
+    case 0: { 
+      gen_num();
+      break; 
+    }
+    case 1: {
+      buf[current_pos++] = '(';
+      gen_num();
+      buf[current_pos++] = ')';
+      break;
+    }
+    default: {
+      gen_rand_expr();
+      gen_rand_op();
+      gen_rand_expr();
+      break;
+    }
+  }
+  buf[current_pos] = '\0';
 }
 
 static char code_buf[65536];
@@ -30,8 +74,11 @@ int main(int argc, char *argv[]) {
   int i;
   for (i = 0; i < loop; i ++) {
     gen_rand_expr();
+    // printf("%s %d\n", buf, current_pos);
+    current_pos = 0;
 
     sprintf(code_buf, code_format, buf);
+    // printf("%s\n", code_buf);
 
     FILE *fp = fopen(".code.c", "w");
     assert(fp != NULL);
