@@ -156,7 +156,7 @@ static int find_main_op(int p, int q) {
   int i ;
   int pos = 0;
   int priority = 0;
-  printf("%d, %d\n", p, q);
+  
   for (i = p; i < q; ++i) {
     int t = tokens[i].type;
     if (t == TK_DEC) continue;
@@ -178,6 +178,7 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
+  printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
