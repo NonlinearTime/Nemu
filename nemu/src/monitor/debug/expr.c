@@ -204,7 +204,7 @@ uint32_t eval(int p, int q) {
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
     // printf("%d\n", atoi(tokens[p].str));
-    return atoi(tokens[p].str);
+    return (uint32_t)atoi(tokens[p].str);
   } else if (check_parentheses(p, q)) {
     return eval(p + 1, q - 1);
   } else {
