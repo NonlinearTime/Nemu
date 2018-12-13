@@ -134,7 +134,17 @@ static bool make_token(char *e) {
 }
 
 static inline bool check_parentheses(int p, int q) {
-  return tokens[p].type == '(' && tokens[q].type == ')';
+  int i, nr_parentheses = 0;
+  if (!(tokens[p].type == '(' && tokens[q].type == ')')) return false;
+  for (i = p ; i <= q; ++i) {
+    if (tokens[i].type == '(') nr_parentheses++;
+    if (tokens[i].type == ')') {
+      nr_parentheses--;
+      if (nr_parentheses == 0 && i != q) 
+        return false;
+    }
+  }
+  return true;
 }
 
 uint32_t expr(char *e, bool *success) {
