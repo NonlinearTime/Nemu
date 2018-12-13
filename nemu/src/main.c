@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     uint32_t res = expr(buf, &success);
     equ = res == result;
     if (success) {
-      if (!equ) ;//printf("%d %u %u %s\n", equ, res, result, buf);
+      if (!equ) printf("%d %u %u %s\n", equ, res, result, buf);
     } else {
       printf("%u %s\n", result, buf);
       printf("P Error\n");
