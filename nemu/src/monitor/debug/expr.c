@@ -118,6 +118,18 @@ static bool make_token(char *e) {
     }
   }
 
+  int nr_parentheses = 0;
+  for (i = 0 ; i < nr_token ; ++i) {
+    if (tokens[i].type == '(') nr_parentheses++;
+    if (tokens[i].type == ')') nr_parentheses--;
+  }
+  if (nr_parentheses != 0) return false;
+  if (tokens[0].type == ')' || tokens[nr_token - 1].type == '(') return false;
+  for (i = 0 ; i < nr_token - 1 ; ++i) {
+    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_DEC || tokens[i].type == ')')) return false;
+    if (tokens[i].type == '(' && !(tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(')) return false;
+  }
+
   return true;
 }
 
