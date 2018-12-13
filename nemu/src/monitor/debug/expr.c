@@ -173,6 +173,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
+    printf("main op pos: %d\n", op_pos);
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
     if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) return EVAL_ERROR;
