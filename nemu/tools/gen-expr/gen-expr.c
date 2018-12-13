@@ -21,8 +21,8 @@ static char ops[] = {
 
 static void inline gen_num() {
   char nbuf[32];
-  int num = rand();
-  sprintf(nbuf, "%d", num);
+  uint32_t num = rand();
+  sprintf(nbuf, "%u", num);
   int i = 0;
   while(nbuf[i]) buf[current_pos++] = nbuf[i++];
 }
