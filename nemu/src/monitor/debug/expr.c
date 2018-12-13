@@ -216,7 +216,7 @@ uint32_t eval(int p, int q) {
       case '+': /*printf("%u\n", val_l + val_r);*/ return val_l + val_r;
       case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
       case '*': /*printf("%u\n", val_l * val_r);*/ return val_l * val_r;
-      case '/': if (val_r == 0) return EVAL_ERROR; else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
+      case '/': if (val_r == 0) {printf("1\n"); return EVAL_ERROR;} else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
       default : return EVAL_ERROR;
     }
   }
