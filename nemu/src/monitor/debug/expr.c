@@ -33,7 +33,7 @@ static struct rule {
   {"==", TK_EQ, 7},        // equal
   {"\\-", '-', 5},         // subtract 
   {"\\*", '*', 3},         // multiple
-  {"/", '/', 2},           // divide
+  {"/", '/', 3},           // divide
   {"\\(", '(', 1},         // left parentheses
   {"\\)", ')', 1},         // right parentheses
   {"[0-9]+", TK_DEC, 0},   // Decimal
