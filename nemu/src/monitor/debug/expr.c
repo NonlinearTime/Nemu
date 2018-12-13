@@ -112,11 +112,6 @@ static bool make_token(char *e) {
         break;
       }
     }
-
-    for (i = 0 ; i < nr_token ; ++i) {
-      printf("%s \n", tokens[i].str);
-    }
-
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
@@ -154,6 +149,7 @@ static int find_main_op(int p, int q) {
     else if (t == '*' || t == '/') {
       if (priority < 1) {
         priority = 2;
+        pos = i;
       } else if (priority == 2) {
         pos = i;
       }
