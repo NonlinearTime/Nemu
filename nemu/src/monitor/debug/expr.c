@@ -156,20 +156,25 @@ static int find_main_op(int p, int q) {
   int i ;
   int pos = 0;
   int priority = 0;
+  int in_parentheses = 0;
   
   for (i = p; i < q; ++i) {
     int t = tokens[i].type;
     if (t == TK_DEC) continue;
-    else if (t == '(') break;
-    else if (t == '*' || t == '/') {
+    else if (t == '(') {
+      in_parentheses++;
+      continue;
+    } else if (t == ')') {
+      in_parentheses--;
+      continue;
+    } else if ((t == '*' || t == '/') && in_parentheses == 0) {
       if (priority < 1) {
         priority = 2;
         pos = i;
       } else if (priority == 2) {
         pos = i;
       }
-    }
-    else if (t == '+' || t == '-') {
+    } else if ((t == '+' || t == '-') && in_parentheses == 0) {
       pos = i;
       priority = 1;
     }
