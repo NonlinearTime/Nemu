@@ -198,7 +198,7 @@ static int find_main_op(int p, int q) {
 uint32_t eval(int p, int q) {
   printf("%d, %d\n", p, q);
   if (p > q) {
-    printf("Bad expression.\n");
+    // printf("Bad expression.\n");
     return EVAL_ERROR;
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
@@ -208,10 +208,13 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
-    printf("main op pos: %d\n", op_pos);
+    // printf("main op pos: %d\n", op_pos);
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
-    if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) {printf("1\n"); return EVAL_ERROR;}
+    if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) {
+      printf("main op pos: %d\n", op_pos);printf("1\n"); 
+      return EVAL_ERROR;
+    }
     switch(tokens[op_pos].type) {
       case '+': /*printf("%u\n", val_l + val_r);*/ return val_l + val_r;
       case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
