@@ -157,7 +157,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   uint32_t res = eval(0, nr_token - 1);
   *success = res != EVAL_ERROR;
-  if (*success) printf("%d\n", res);
+  if (*success) printf("%u\n", res);
   else printf("Failed\n");
   return 0;
 }
