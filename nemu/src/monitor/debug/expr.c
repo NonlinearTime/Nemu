@@ -198,7 +198,7 @@ static int find_main_op(int p, int q) {
 uint32_t eval(int p, int q) {
   // printf("%d, %d\n", p, q);
   if (p > q) {
-    // printf("Bad expression.\n");
+    printf("Bad expression.\n");
     return EVAL_ERROR;
   } else if (p == q) {
     assert(tokens[p].type == TK_DEC);
