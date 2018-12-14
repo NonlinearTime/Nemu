@@ -276,7 +276,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
-    // printf("main op pos: %d\n", op_pos);
+    printf("main op pos: %d\n", op_pos);
     if (p == op_pos && (tokens[op_pos].type == TK_MINUS || tokens[op_pos].type == TK_DEREF)) {
       uint32_t val = eval (p + 1,q);
       switch (tokens[op_pos].type) {
