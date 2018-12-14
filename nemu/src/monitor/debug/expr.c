@@ -256,6 +256,7 @@ uint32_t eval(int p, int q) {
         } else Assert(0, "Reg length error!\n");
 
         for (i = R_EAX ; i <= R_EDI; ++i) {
+          printf("%s\n", reg_name(i, len));
           if (strcmp(tokens[p].str, reg_name(i, len)) == 0) {
             num = reg_value(i, len);
             break;
