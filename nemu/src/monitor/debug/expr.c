@@ -163,9 +163,9 @@ static bool make_token(char *e) {
   if (nr_parentheses != 0) {printf("2\n"); return false;}
   if (tokens[0].type == ')' || tokens[nr_token - 1].type == '(') {printf("3\n"); return false;}
   for (i = 0 ; i < nr_token - 1 ; ++i) {
-    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_HEX || tokens[i].type == TK_DEC || tokens[i].type == ')')) {printf("4\n");return false;}
+    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_REG || tokens[i].type == TK_HEX || tokens[i].type == TK_DEC || tokens[i].type == ')')) {printf("4\n");return false;}
     if (tokens[i].type == '(' && 
-    !(tokens[i].type == TK_HEX || tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(' || tokens[i + 1].type == '*' || tokens[i + 1].type == '-' )) {printf("5\n");return false;}
+    !(tokens[i].type == TK_REG || tokens[i].type == TK_HEX || tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(' || tokens[i + 1].type == '*' || tokens[i + 1].type == '-' )) {printf("5\n");return false;}
   }
 
   return true;
