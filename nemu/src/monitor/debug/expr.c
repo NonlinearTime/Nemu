@@ -252,7 +252,7 @@ uint32_t eval(int p, int q) {
     uint32_t num;
     switch (tokens[p].type) {
       case TK_DEC: num = (uint32_t)atoi(tokens[p].str); break;
-      case TK_HEX: sscanf(tokens[p].str, "%x", &num);
+      case TK_HEX: sscanf(tokens[p].str, "%x", &num); break;
       case TK_REG: {
         int i, len;
         int l = strlen(tokens[p].str);
