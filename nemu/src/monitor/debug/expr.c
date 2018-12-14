@@ -38,7 +38,7 @@ static struct rule {
   {"/", '/', 3},           // divide
   
   {"[0-9]+", TK_DEC, 0},   // Decimal
-  {"0[Xx][0-9A-Fa-f]+", TK_HEX, 0}, //Hex
+  {"\\b0[Xx][0-9A-Fa-f]+\\b", TK_HEX, 0}, //Hex
 
   {"==", TK_EQ, 7},        // equal 
   {"!=", TK_NEQ, 7},       // neq
