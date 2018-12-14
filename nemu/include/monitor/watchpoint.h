@@ -16,12 +16,14 @@ typedef struct watchpoint {
 
 WP* new_wp();
 
-void free_wp(WP *wp);
+void free_wp(int n);
 
 WP* get_wp_head();
 
 WP* get_free_head();
 
 WP* check_watchpoints();
+
+WP* print_watchpoints();
 
 #endif

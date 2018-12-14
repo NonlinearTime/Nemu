@@ -32,21 +32,21 @@ WP* new_wp() {
 
   return ret;
 }
-void free_wp(WP *wp) {
+void free_wp(int n) {
   WP *pW, *W;
   pW = head;
   W = pW->next;
-  if (pW->NO == wp->NO) head = pW->next;
+  if (pW->NO == n) head = pW->next;
   else while (W != NULL) {
-      if (W->NO == wp->NO) {
+      if (W->NO == n) {
         pW->next = W->next;
         return;
       }
       pW = W;
       W = W->next;
     }
-  wp->next = free_;
-  free_ = wp;
+  wp_pool[n].next = free_;
+  free_ = &wp_pool[n];
   return;
 }
 
@@ -68,6 +68,15 @@ WP* check_watchpoints() {
       wp->old_value = res;
       return wp;
     }
+    wp = wp->next;
+  }
+  return wp;
+}
+
+WP* print_watchpoints() {
+  WP *wp = head;
+  while (wp != NULL) {
+    printf("%d %s %u\n", wp->NO, wp->expression, wp->old_value);
     wp = wp->next;
   }
   return wp;

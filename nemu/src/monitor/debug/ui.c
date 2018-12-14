@@ -50,6 +50,8 @@ static int cmd_p(char *args);
 
 static int cmd_w(char *args);
 
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -65,7 +67,7 @@ static struct {
   { "x", "Check n bytes from the given address, usage: x n expr", cmd_x}, 
   { "p", "Calculate the expression in decimal, usage: p [expr]", cmd_p},
   { "w", "Create watchpoints, usage: w [expr]", cmd_w},
-
+  { "d", "Delete a watchpoint by number, usage: d [no]", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -123,7 +125,7 @@ static int cmd_info(char *args) {
       printf("eip 0x%x 0x%x %s\n", cpu.eip, cpu.eip, decoding.assembly);
       return 0;
     } else if (strcmp(arg, "w") == 0) {
-      
+      print_watchpoints();
       return 0;
     } else {
       printf("Unknown information type.\n");
@@ -156,7 +158,8 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
   bool success;
-  expr(args, &success);
+  uint32_t res = expr(args, &success);
+  printf("%u\n",res);
   return 0;
 }
 
@@ -168,6 +171,14 @@ static int cmd_w(char *args) {
     sprintf(node->expression, "%s", args);
     node->old_value = ret;
   }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) return 0;
+  int n = atoi(arg);
+  free_wp(n);
   return 0;
 }
 
