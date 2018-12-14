@@ -128,11 +128,11 @@ static bool make_token(char *e) {
             // printf("fuck3!\n");
             break;
           }
-          case TK_NOTYPE: nr_token += 1; break;
+          case TK_NOTYPE: break;
           default: {
             tokens[nr_token].type = rules[i].token_type;
             tokens[nr_token].priority = rules[i].priority;
-            printf("fuck4!\n");
+            // printf("fuck4!\n");
             nr_token += 1;
           };
         }
