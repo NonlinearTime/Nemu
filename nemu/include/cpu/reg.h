@@ -61,4 +61,14 @@ static inline const char* reg_name(int index, int width) {
   }
 }
 
+static inline const uint32_t reg_value(int index, int width) {
+  assert(index >= 0 && index < 8);
+  switch (width) {
+    case 4: return reg_l(index);
+    case 1: return reg_b(index);
+    case 2: return reg_w(index);
+    default: assert(0);
+  }
+}
+
 #endif

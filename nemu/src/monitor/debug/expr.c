@@ -12,7 +12,7 @@
 uint32_t eval(int p, int q);
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_DEC, TK_HEX, TK_AND, TK_OR, TK_REG, TK_DEREF, TK_MINUS
 
   /* TODO: Add more token types */
 
@@ -29,14 +29,23 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE, 0},    // spaces
+  {"\\(", '(', 1},         // left parenthese
+  {"\\)", ')', 1},         // right parenthese
+
   {"\\+", '+', 5},         // plus
-  {"==", TK_EQ, 7},        // equal
-  {"\\-", '-', 5},         // subtract 
+  {"\\-", '-', 5},         // subtract
   {"\\*", '*', 3},         // multiple
   {"/", '/', 3},           // divide
-  {"\\(", '(', 1},         // left parentheses
-  {"\\)", ')', 1},         // right parentheses
+  
   {"[0-9]+", TK_DEC, 0},   // Decimal
+  {"0[Xx]{[0-9A-Fa-f]}+", TK_HEX, 0}, //Hex
+
+  {"==", TK_EQ, 7},        // equal 
+  {"!=", TK_NEQ, 7},       // neq
+  {"&&", TK_AND, 11},      // logic and
+  {"\\|\\|", TK_OR, 12},   // logic or
+  
+  {"$[a-zA-Z]+", TK_REG, 0},  // register
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -104,6 +113,16 @@ static bool make_token(char *e) {
             my_strcpy(tokens[nr_token].str, e + position - substr_len, substr_len);
             break;
           };
+          case TK_HEX: {
+            tokens[nr_token].type = TK_HEX;
+            my_strcpy(tokens[nr_token].str, e + position - substr_len, substr_len);
+            break;
+          }
+          case TK_REG: {
+            tokens[nr_token].type = TK_REG;
+            my_strcpy(tokens[nr_token].str, e + position - substr_len + 1, substr_len - 1);
+            break;
+          }
           case TK_NOTYPE: break;
           default: {
             tokens[nr_token].type = rules[i].token_type;
@@ -130,8 +149,9 @@ static bool make_token(char *e) {
   if (nr_parentheses != 0) return false;
   if (tokens[0].type == ')' || tokens[nr_token - 1].type == '(') return false;
   for (i = 0 ; i < nr_token - 1 ; ++i) {
-    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_DEC || tokens[i].type == ')')) return false;
-    if (tokens[i].type == '(' && !(tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(')) return false;
+    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_HEX || tokens[i].type == TK_DEC || tokens[i].type == ')')) return false;
+    if (tokens[i].type == '(' && 
+    !(tokens[i].type == TK_HEX || tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(' || tokens[i + 1].type == '*' || tokens[i + 1].type == '-' )) return false;
   }
 
   return true;
@@ -158,11 +178,30 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
 
+  int i;
+
+  for (i = 0 ; i < nr_token; ++i) {
+    printf("%s ", tokens[i].str);
+  }
+  printf("\n");
+
+  for (i = 0; i < nr_token; i ++) {
+    int t = tokens[i - 1].type;
+    if (tokens[i].type == '*' && (i == 0 || !(t == ')' || t == TK_REG || t == TK_DEC || t == TK_HEX))) {
+      tokens[i].type = TK_DEREF;
+      tokens[i].priority = 2;
+    }
+    if (tokens[i].type == '-' && (i == 0 || !(t == ')' || t == TK_REG || t == TK_DEC || t == TK_HEX))) {
+      tokens[i].type = TK_MINUS;
+      tokens[i].priority = 2;
+    }
+  }
+
   /* TODO: Insert codes to evaluate the expression. */
   uint32_t res = eval(0, nr_token - 1);
   *success = res != EVAL_ERROR;
   if (*success) { 
-    // printf("%u\n", res);
+    printf("%u\n", res);
     return res;
   }
   else printf("Failed\n");
@@ -178,7 +217,7 @@ static int find_main_op(int p, int q) {
   for (i = p; i < q; ++i) {
     int t = tokens[i].type;
     int p = tokens[i].priority;
-    if (t == TK_DEC) continue;
+    if (t == TK_DEC || t == TK_HEX) continue;
     else if (t == '(') {
       in_parentheses++;
       continue;
@@ -201,14 +240,42 @@ uint32_t eval(int p, int q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
   } else if (p == q) {
-    assert(tokens[p].type == TK_DEC);
+    assert(tokens[p].type == TK_DEC || tokens[p].type == TK_HEX || tokens[p].type == TK_REG);
     // printf("%u\n", atoi(tokens[p].str));
-    return (uint32_t)atoi(tokens[p].str);
+    uint32_t num;
+    switch (tokens[p].type) {
+      case TK_DEC: num = (uint32_t)atoi(tokens[p].str); break;
+      case TK_HEX: sscanf(tokens[p].str, "%x", &num);
+      case TK_REG: {
+        int i;
+        int len = strlen(tokens[p].str);
+        for (i = R_EAX ; i <= R_EDI; ++i) {
+          if (strcmp(tokens[p].str, reg_name(i, len)) == 0) {
+            num = reg_value(i, len);
+            break;
+          }
+        }
+        if (i > R_EDI && strcmp(tokens[p].str, "eip") == 0) 
+          num = cpu.eip;
+        else Assert(0, "Register name error!\n");
+        break;
+      }
+      default: Assert(0, "Element type error!\n");
+    }
+    return num;
   } else if (check_parentheses(p, q)) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
     // printf("main op pos: %d\n", op_pos);
+    if (p == op_pos && (tokens[op_pos].type == TK_MINUS || tokens[op_pos].type == TK_DEREF)) {
+      uint32_t val = eval (p + 1,q);
+      switch (tokens[op_pos].type) {
+        case TK_MINUS: return -val;
+        case TK_DEREF: return vaddr_read(val, 4);
+        default: break;
+      }
+    }
     uint32_t val_l = eval(p, op_pos - 1);
     uint32_t val_r = eval(op_pos + 1, q);
     if (val_l == EVAL_ERROR || val_r == EVAL_ERROR) {
@@ -220,6 +287,10 @@ uint32_t eval(int p, int q) {
       case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
       case '*': /*printf("%u\n", val_l * val_r);*/ return val_l * val_r;
       case '/': if (val_r == 0) return EVAL_ERROR; else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
+      case TK_EQ: return val_l == val_r;
+      case TK_NEQ: return val_l != val_r;
+      case TK_OR: return val_l || val_r;
+      case TK_AND: return val_l && val_r;
       default : return EVAL_ERROR;
     }
   }
