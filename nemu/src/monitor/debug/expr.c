@@ -146,26 +146,26 @@ static bool make_token(char *e) {
     }
   }
 
-  for (i = 0 ; i < nr_token; ++i) {
-    printf("%s ", tokens[i].str);
-  }
-  printf("\n");
+  // for (i = 0 ; i < nr_token; ++i) {
+  //   printf("%s ", tokens[i].str);
+  // }
+  // printf("\n");
 
   int nr_parentheses = 0;
   for (i = 0 ; i < nr_token ; ++i) {
     if (tokens[i].type == '(') nr_parentheses++;
     if (tokens[i].type == ')') nr_parentheses--;
     if (nr_parentheses < 0) { 
-      printf("1\n");
+      // printf("1\n");
       return false;
     }
   }
-  if (nr_parentheses != 0) {printf("2\n"); return false;}
-  if (tokens[0].type == ')' || tokens[nr_token - 1].type == '(') {printf("3\n"); return false;}
+  if (nr_parentheses != 0) {return false;}
+  if (tokens[0].type == ')' || tokens[nr_token - 1].type == '(') {return false;}
   for (i = 0 ; i < nr_token - 1 ; ++i) {
-    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_REG || tokens[i].type == TK_HEX || tokens[i].type == TK_DEC || tokens[i].type == ')')) {printf("4\n");return false;}
+    if (tokens[i + 1].type == ')' && !(tokens[i].type == TK_REG || tokens[i].type == TK_HEX || tokens[i].type == TK_DEC || tokens[i].type == ')')) {return false;}
     if (tokens[i].type == '(' && 
-    !(tokens[i + 1].type == TK_REG || tokens[i + 1].type == TK_HEX || tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(' || tokens[i + 1].type == '*' || tokens[i + 1].type == '-' )) {printf("5\n");return false;}
+    !(tokens[i + 1].type == TK_REG || tokens[i + 1].type == TK_HEX || tokens[i + 1].type == TK_DEC || tokens[i + 1].type == '(' || tokens[i + 1].type == '*' || tokens[i + 1].type == '-' )) {return false;}
   }
 
   return true;
@@ -249,7 +249,7 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("%d, %d\n", p, q);
+  // printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
@@ -290,7 +290,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
-    printf("main op pos: %d\n", op_pos);
+    // printf("main op pos: %d\n", op_pos);
     if (p == op_pos && (tokens[op_pos].type == TK_MINUS || tokens[op_pos].type == TK_DEREF)) {
       uint32_t val = eval (p + 1,q);
       switch (tokens[op_pos].type) {
