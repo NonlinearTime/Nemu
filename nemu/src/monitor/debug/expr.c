@@ -235,11 +235,12 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  // printf("%d, %d\n", p, q);
+  printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
   } else if (p == q) {
+
     assert(tokens[p].type == TK_DEC || tokens[p].type == TK_HEX || tokens[p].type == TK_REG);
     // printf("%u\n", atoi(tokens[p].str));
     uint32_t num;
