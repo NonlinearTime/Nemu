@@ -126,6 +126,7 @@ static bool make_token(char *e) {
             tokens[nr_token].type = TK_REG;
             my_strcpy(tokens[nr_token].str, e + position - substr_len + 1, substr_len - 1);
             // printf("fuck3!\n");
+            nr_token += 1;
             break;
           }
           case TK_NOTYPE: break;
