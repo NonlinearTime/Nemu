@@ -111,30 +111,31 @@ static bool make_token(char *e) {
           case TK_DEC: {
             tokens[nr_token].type = TK_DEC;
             my_strcpy(tokens[nr_token].str, e + position - substr_len, substr_len);
-            printf("fuck1!\n");
+            // printf("fuck1!\n");
+            nr_token += 1;
             break;
           };
           case TK_HEX: {
             tokens[nr_token].type = TK_HEX;
             my_strcpy(tokens[nr_token].str, e + position - substr_len, substr_len);
-            printf("fuck2!\n");
+            // printf("fuck2!\n");
+            nr_token += 1;
             break;
           }
           case TK_REG: {
             tokens[nr_token].type = TK_REG;
             my_strcpy(tokens[nr_token].str, e + position - substr_len + 1, substr_len - 1);
-            printf("fuck3!\n");
+            // printf("fuck3!\n");
             break;
           }
-          case TK_NOTYPE: printf("fuck!\n"); break;
+          case TK_NOTYPE: nr_token += 1; break;
           default: {
             tokens[nr_token].type = rules[i].token_type;
             tokens[nr_token].priority = rules[i].priority;
             printf("fuck4!\n");
+            nr_token += 1;
           };
         }
-
-        nr_token += 1;
         break;
       }
     }
