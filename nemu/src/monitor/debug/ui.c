@@ -109,14 +109,14 @@ static int cmd_info(char *args) {
     return 0;
   } else {
     if (strcmp(arg, "r") == 0) {
-      printf("eax 0x%x %d\n", reg_w(R_EAX), reg_w(R_EAX));
-      printf("ecx 0x%x %d\n", reg_w(R_ECX), reg_w(R_ECX));
-      printf("edx 0x%x %d\n", reg_w(R_EDX), reg_w(R_EDX));
-      printf("ebx 0x%x %d\n", reg_w(R_EBX), reg_w(R_EBX));
-      printf("esp 0x%x 0x%x\n", reg_w(R_ESP), reg_w(R_ESP));
-      printf("ebp 0x%x 0x%x\n", reg_w(R_EBP), reg_w(R_EBP));
-      printf("esi 0x%x %d\n", reg_w(R_ESI), reg_w(R_ESI));
-      printf("edi 0x%x %d\n", reg_w(R_EDI), reg_w(R_EDI));
+      printf("eax 0x%x %d\n", reg_l(R_EAX), reg_l(R_EAX));
+      printf("ecx 0x%x %d\n", reg_l(R_ECX), reg_l(R_ECX));
+      printf("edx 0x%x %d\n", reg_l(R_EDX), reg_l(R_EDX));
+      printf("ebx 0x%x %d\n", reg_l(R_EBX), reg_l(R_EBX));
+      printf("esp 0x%x 0x%x\n", reg_l(R_ESP), reg_l(R_ESP));
+      printf("ebp 0x%x 0x%x\n", reg_l(R_EBP), reg_l(R_EBP));
+      printf("esi 0x%x %d\n", reg_l(R_ESI), reg_l(R_ESI));
+      printf("edi 0x%x %d\n", reg_l(R_EDI), reg_l(R_EDI));
       printf("eip 0x%x 0x%x %s\n", cpu.eip, cpu.eip, decoding.assembly);
       return 0;
     } else if (strcmp(arg, "w") == 0) {
