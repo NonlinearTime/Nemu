@@ -186,10 +186,10 @@ uint32_t expr(char *e, bool *success) {
 
   int i;
 
-  for (i = 0 ; i < nr_token; ++i) {
-    printf("%s ", tokens[i].str);
-  }
-  printf("\n");
+  // for (i = 0 ; i < nr_token; ++i) {
+  //   printf("%s ", tokens[i].str);
+  // }
+  // printf("\n");
 
   for (i = 0; i < nr_token; i ++) {
     int t = tokens[i - 1].type;
