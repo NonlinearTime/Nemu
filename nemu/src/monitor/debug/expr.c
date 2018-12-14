@@ -256,8 +256,8 @@ uint32_t eval(int p, int q) {
         } else Assert(0, "Reg length error!\n");
 
         for (i = R_EAX ; i <= R_EDI; ++i) {
-          printf("%s\n", reg_name(i, len));
-          printf("%d\n" ,strcmp(tokens[p].str, reg_name(i, len)));
+          // printf("%s\n", reg_name(i, len));
+          // printf("%d\n" ,strcmp(tokens[p].str, reg_name(i, len)));
           if (strcmp(tokens[p].str, reg_name(i, len)) == 0) {
             num = reg_value(i, len);
             break;
@@ -265,7 +265,7 @@ uint32_t eval(int p, int q) {
         }
         if (i > R_EDI && strcmp(tokens[p].str, "eip") == 0) 
           num = cpu.eip;
-        else Assert(0, "Register name error!\n");
+        else if (i > R_EDI) Assert(0, "Register name error!\n");
         break;
       }
       default: Assert(0, "Element type error!\n");
