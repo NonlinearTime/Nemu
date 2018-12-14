@@ -231,7 +231,7 @@ static int find_main_op(int p, int q) {
       in_parentheses--;
       continue;
     } else {
-      if (p >= priority) {
+      if (p >= priority && in_parentheses == 0) {
         priority = p;
         pos = i;
       }
