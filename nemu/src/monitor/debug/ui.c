@@ -136,6 +136,7 @@ static int cmd_x(char *args) {
   int n = atoi(arg);
   int i;
   char *hex = strtok(NULL, " ");
+  if (arg == NULL) return 0;
   paddr_t p;
   sscanf(hex, "%x", &p);
 
