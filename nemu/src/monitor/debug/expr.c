@@ -241,7 +241,7 @@ static int find_main_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("%d, %d\n", p, q);
+  // printf("%d, %d\n", p, q);
   if (p > q) {
     printf("Bad expression.\n");
     return EVAL_ERROR;
@@ -282,7 +282,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   } else {
     int op_pos = find_main_op(p, q);
-    printf("main op pos: %d\n", op_pos);
+    // printf("main op pos: %d\n", op_pos);
     if (p == op_pos && (tokens[op_pos].type == TK_MINUS || tokens[op_pos].type == TK_DEREF)) {
       uint32_t val = eval (p + 1,q);
       switch (tokens[op_pos].type) {
@@ -298,10 +298,10 @@ uint32_t eval(int p, int q) {
       return EVAL_ERROR;
     }
     switch(tokens[op_pos].type) {
-      case '+': /*printf("%u\n", val_l + val_r);*/ return val_l + val_r;
-      case '-': /*printf("%u\n", val_l - val_r);*/ return val_l - val_r;
-      case '*': /*printf("%u\n", val_l * val_r);*/ return val_l * val_r;
-      case '/': if (val_r == 0) return EVAL_ERROR; else /*printf("%u\n", val_l / val_r);*/ return val_l / val_r;
+      case '+': return val_l + val_r;
+      case '-': return val_l - val_r;
+      case '*': return val_l * val_r;
+      case '/': if (val_r == 0) return EVAL_ERROR; else return val_l / val_r;
       case TK_EQ: return val_l == val_r;
       case TK_NEQ: return val_l != val_r;
       case TK_OR: return val_l || val_r;
