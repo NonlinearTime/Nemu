@@ -45,7 +45,7 @@ static struct rule {
   {"&&", TK_AND, 11},      // logic and
   {"\\|\\|", TK_OR, 12},   // logic or
   
-  {"$[a-zA-Z]+", TK_REG, 0},  // register
+  {"\\$[a-zA-Z]+", TK_REG, 0},  // register
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
