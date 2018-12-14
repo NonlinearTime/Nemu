@@ -35,16 +35,40 @@ WP* new_wp() {
 void free_wp(WP *wp) {
   WP *pW, *W;
   pW = head;
+  W = pW->next;
   if (pW->NO == wp->NO) head = pW->next;
-  else while (pW->next != NULL) {
-      W = head->next;
+  else while (W != NULL) {
       if (W->NO == wp->NO) {
         pW->next = W->next;
         return;
       }
+      pW = W;
+      W = W->next;
     }
   wp->next = free_;
   free_ = wp;
   return;
 }
 
+WP* get_wp_head() {
+  return head;
+}
+
+WP* get_free_head() {
+  return free_;
+}
+
+WP* check_watchpoints() {
+  WP *wp = head;
+  bool success;
+  uint32_t res;
+  while (wp != NULL) {
+    res = expr(wp->expression, &success);
+    if (res != wp->old_value) {
+      wp->old_value = res;
+      return wp;
+    }
+    wp = wp->next;
+  }
+  return wp;
+}

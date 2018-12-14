@@ -41,7 +41,12 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-    // bool success;
+    WP* wp = check_watchpoints();
+    if (wp) {
+      nemu_state = NEMU_STOP;
+      printf("watchpoint %d: %s touched, new value: %u\n", wp->NO, wp->expression, wp->old_value);
+    } 
+
     
 
 #endif
@@ -60,6 +65,9 @@ void cpu_exec(uint64_t n) {
       }
       else if (nemu_state == NEMU_ABORT) {
         printflog("\33[1;31mnemu: ABORT\33[0m at eip = 0x%08x\n\n", cpu.eip);
+        return;
+      } else if (nemu_state == NEMU_STOP) {
+        printflog("\33[1;31mnemu: STOP\33[0m at eip = 0x%08x\n\n", cpu.eip);
         return;
       }
     }

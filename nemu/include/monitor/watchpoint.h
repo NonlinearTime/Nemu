@@ -18,4 +18,10 @@ WP* new_wp();
 
 void free_wp(WP *wp);
 
+WP* get_wp_head();
+
+WP* get_free_head();
+
+WP* check_watchpoints();
+
 #endif
