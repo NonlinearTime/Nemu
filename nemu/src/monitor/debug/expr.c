@@ -247,8 +247,14 @@ uint32_t eval(int p, int q) {
       case TK_DEC: num = (uint32_t)atoi(tokens[p].str); break;
       case TK_HEX: sscanf(tokens[p].str, "%x", &num);
       case TK_REG: {
-        int i;
-        int len = strlen(tokens[p].str);
+        int i, len;
+        int l = strlen(tokens[p].str);
+        if (l == 3) len = 4;
+        else if (l == 2) {
+          if (tokens[p].str[l - 1] == 'h' || tokens[p].str[l - 1] == 'l') len = 1;
+          else len = 2;
+        } else Assert(0, "Reg length error!\n");
+
         for (i = R_EAX ; i <= R_EDI; ++i) {
           if (strcmp(tokens[p].str, reg_name(i, len)) == 0) {
             num = reg_value(i, len);
