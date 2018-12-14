@@ -146,6 +146,11 @@ static bool make_token(char *e) {
     }
   }
 
+  for (i = 0 ; i < nr_token; ++i) {
+    printf("%s ", tokens[i].str);
+  }
+  printf("\n");
+
   int nr_parentheses = 0;
   for (i = 0 ; i < nr_token ; ++i) {
     if (tokens[i].type == '(') nr_parentheses++;
