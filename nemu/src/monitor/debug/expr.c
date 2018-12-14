@@ -123,7 +123,7 @@ static bool make_token(char *e) {
             my_strcpy(tokens[nr_token].str, e + position - substr_len + 1, substr_len - 1);
             break;
           }
-          case TK_NOTYPE: break;
+          case TK_NOTYPE: printf("fuck!\n"); break;
           default: {
             tokens[nr_token].type = rules[i].token_type;
             tokens[nr_token].priority = rules[i].priority;
