@@ -48,6 +48,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -62,6 +64,7 @@ static struct {
   { "info", "Check the information of registers or watch points, usage: r - regs  w - wps", cmd_info},
   { "x", "Check n bytes from the given address, usage: x n expr", cmd_x}, 
   { "p", "Calculate the expression in decimal, usage: p [expr]", cmd_p},
+  { "w", "Create watchpoints, usage: w [expr]", cmd_w},
 
 };
 
@@ -120,7 +123,7 @@ static int cmd_info(char *args) {
       printf("eip 0x%x 0x%x %s\n", cpu.eip, cpu.eip, decoding.assembly);
       return 0;
     } else if (strcmp(arg, "w") == 0) {
-
+      
       return 0;
     } else {
       printf("Unknown information type.\n");
@@ -157,6 +160,16 @@ static int cmd_p(char *args) {
   return 0;
 }
 
+static int cmd_w(char *args) {
+  bool success;
+  uint32_t ret = expr(args, &success);
+  if (success) {
+    WP* node = new_wp();
+    sprintf(node->expression, "%s", args);
+    node->old_value = ret;
+  }
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
