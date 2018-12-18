@@ -175,6 +175,18 @@ make_DHelper(I2r) {
   decode_op_I(eip, id_src, true);
 }
 
+make_DHelper(Ib2r) {
+  decode_op_r(eip, id_dest, true);
+  id_src->width = 1;
+  decode_op_I(eip, id_src, true);
+}
+
+make_DHelper(Iw2r) {
+  decode_op_r(eip, id_dest, true);
+  id_src->width = 2;
+  decode_op_I(eip, id_src, true);
+}
+
 make_DHelper(mov_I2r) {
   decode_op_r(eip, id_dest, false);
   decode_op_I(eip, id_src, true);
