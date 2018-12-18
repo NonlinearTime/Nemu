@@ -18,6 +18,8 @@ make_EHelper(ret);
 make_EHelper(jcc);
 make_EHelper(jmp);
 
+make_EHelper(leave);
+
 
 // arith
 make_EHelper(sub);

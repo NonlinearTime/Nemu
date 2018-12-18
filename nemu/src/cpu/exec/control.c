@@ -45,3 +45,13 @@ make_EHelper(call_rm) {
 
   print_asm("call *%s", id_dest->str);
 }
+
+make_EHelper(leave) {
+  // if (decoding.is_operand_size_16) {
+  //   rtl_addi(&reg_w(R_ESP), &reg_w(R_EBP), 0);
+  // } else {
+  //   rtl_addi(&reg_l(R_ESP), &reg_l(R_EBP), 0);
+  // }
+  rtl_addi(&reg_l(R_ESP), &reg_l(R_EBP), 0);
+  rtl_pop(&reg_l(R_EBP));
+}
