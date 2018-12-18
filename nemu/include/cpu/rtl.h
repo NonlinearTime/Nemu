@@ -179,7 +179,9 @@ static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   // TODO();
+  printf("0x%x\n", *dest);
   rtl_lm(dest, &cpu.esp, 4);
+  printf("0x%x\n", *dest);
   cpu.esp += 4;
 }
 
