@@ -35,6 +35,7 @@ make_EHelper(call) {
 
 make_EHelper(ret) {
   // only implement c3
+  printf("%x\n", *eip);
   rtl_pop(eip);
   // printf("%x\n", *eip);
   print_asm("ret");
