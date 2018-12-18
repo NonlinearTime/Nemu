@@ -15,6 +15,8 @@ make_EHelper(lea);
 // control
 make_EHelper(call);
 make_EHelper(ret);
+make_EHelper(jcc);
+make_EHelper(jmp);
 
 
 // arith

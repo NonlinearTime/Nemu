@@ -84,6 +84,7 @@ make_DHelper(SI_E2G);
 make_DHelper(I_E2G);
 make_DHelper(I_G2E);
 make_DHelper(I);
+make_DHelper(jmp_call_I);
 make_DHelper(r);
 make_DHelper(E);
 make_DHelper(setcc_E);

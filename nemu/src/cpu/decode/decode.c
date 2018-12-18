@@ -201,6 +201,11 @@ make_DHelper(r) {
   decode_op_r(eip, id_dest, true);  //id_dest <- reg number in opcode
 }
 
+make_DHelper(jmp_call_I) {
+  decode_op_SI(eip, id_dest, true);
+  decoding.jmp_eip = *eip + id_dest->val;
+}
+
 make_DHelper(E) {
   decode_op_rm(eip, id_dest, true, NULL, false);  
 } 
