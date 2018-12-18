@@ -6,14 +6,13 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  TODO();
-
+  rtl_push(eip);
+  rtl_j(id_dest->imm);
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-  TODO();
-
+  rtl_pop(&reg_l(id_dest->reg));
   print_asm_template1(pop);
 }
 

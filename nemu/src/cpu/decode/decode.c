@@ -41,7 +41,9 @@ static inline make_DopHelper(SI) {
    *
    op->simm = ???
    */
-  TODO();
+  uint32_t t = instr_fetch(eip, op->width);
+  rtl_sext(&t, &t, op->width);
+  op->simm = (int32_t)t;
 
   rtl_li(&op->val, op->simm);
 
@@ -113,7 +115,7 @@ static inline make_DopHelper(O) {
  * Ev <- Gv
  */
 make_DHelper(G2E) {
-  decode_op_rm(eip, id_dest, true, id_src, true);
+  decode_op_rm(eip, id_dest, true, id_src, true); // id_dest <- dest_reg / mem, id_src <- src_reg (R/M mode)
 }
 
 make_DHelper(mov_G2E) {
@@ -179,11 +181,11 @@ make_DHelper(mov_I2r) {
 
 /* used by unary operations */
 make_DHelper(I) {
-  decode_op_I(eip, id_dest, true);
+  decode_op_I(eip, id_dest, true);  //id_dest <- imm
 }
 
 make_DHelper(r) {
-  decode_op_r(eip, id_dest, true);
+  decode_op_r(eip, id_dest, true);  //id_dest <- reg number in opcode
 }
 
 make_DHelper(E) {
@@ -204,7 +206,7 @@ make_DHelper(test_I) {
 }
 
 make_DHelper(SI2E) {
-  assert(id_dest->width == 2 || id_dest->width == 4);
+  assert(id_dest->width == 2 || id_dest->width == 4);   // used fpr xxx r/m16m32 imm8 (signed ext for imm)
   decode_op_rm(eip, id_dest, true, NULL, false);
   id_src->width = 1;
   decode_op_SI(eip, id_src, true);
