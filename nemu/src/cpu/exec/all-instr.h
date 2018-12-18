@@ -22,5 +22,6 @@ make_EHelper(sub);
 
 // logic
 make_EHelper(xor);
-
+make_EHelper(and);
+make_EHelper(or);
 
