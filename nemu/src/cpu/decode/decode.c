@@ -207,7 +207,7 @@ make_DHelper(test_I) {
 }
 
 make_DHelper(SI2E) {
-  assert(id_dest->width == 2 || id_dest->width == 4);   // used fpr xxx r/m16m32 imm8 (signed ext for imm)
+  assert(id_dest->width == 2 || id_dest->width == 4);   // used for xxx r/m16m32 imm8 (signed ext for imm)
   decode_op_rm(eip, id_dest, true, NULL, false);
   id_src->width = 1;
   decode_op_SI(eip, id_src, true);

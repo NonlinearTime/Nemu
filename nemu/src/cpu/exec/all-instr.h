@@ -19,6 +19,8 @@ make_EHelper(ret);
 
 // arith
 make_EHelper(sub);
+make_EHelper(add);
+
 
 // logic
 make_EHelper(xor);
