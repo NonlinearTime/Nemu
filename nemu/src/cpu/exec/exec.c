@@ -247,6 +247,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
   printf("eip: 0x%x\n", decoding.seq_eip);
+  printf("edi: 0x%x\n", reg_l(R_EDI));
   update_eip();
 
 #if defined(DIFF_TEST)
