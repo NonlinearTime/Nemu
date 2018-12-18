@@ -25,3 +25,6 @@ make_EHelper(xor);
 make_EHelper(and);
 make_EHelper(or);
 
+// special
+make_EHelper(nop);
+
