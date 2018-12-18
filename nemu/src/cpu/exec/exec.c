@@ -43,7 +43,7 @@ static make_EHelper(name) { \
 // logic ?
 make_group(gp1,
     EX(add), EX(or), EMPTY, EMPTY,
-    EX(and), EX(sub), EMPTY, EMPTY)
+    EX(and), EX(sub), EMPTY, EX(cmp))
 
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
@@ -87,7 +87,7 @@ opcode_entry opcode_table [512] = {
   /* 0x2c */	IDEXW(I2a, sub, 1), IDEX(I2a, sub), EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(E2G, xor), EMPTY, EMPTY,
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x38 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x38 */	EMPTY, EMPTY, EMPTY, IDEX(G2E, cmp),
   /* 0x3c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x40 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x44 */	EMPTY, EMPTY, EMPTY, EMPTY,
