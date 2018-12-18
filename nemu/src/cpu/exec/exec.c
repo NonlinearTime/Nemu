@@ -102,7 +102,7 @@ opcode_entry opcode_table [512] = {
   /* 0x68 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x70 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x74 */	IDEXW(jmp_call_I, jcc, 1), EMPTY, EMPTY, EMPTY,
+  /* 0x74 */	IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), EMPTY, EMPTY,
   /* 0x78 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x7c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x80 */	IDEXW(I2E, gp1, 1), IDEX(I2E, gp1), EMPTY, IDEX(SI2E, gp1),
