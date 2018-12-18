@@ -100,7 +100,7 @@ static inline void decode_op_rm(vaddr_t *eip, Operand *rm, bool load_rm_val, Ope
 }
 
 /* Ob, Ov */
-static inline make_DopHelper(O) {
+static inline make_DopHelper(O) {         //used for lea?
   op->type = OP_TYPE_MEM;
   rtl_li(&op->addr, instr_fetch(eip, 4));
   if (load_val) {

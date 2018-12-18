@@ -106,7 +106,7 @@ void read_ModR_M(vaddr_t *eip, Operand *rm, bool load_rm_val, Operand *reg, bool
 #endif
   }
   else {
-    load_addr(eip, &m, rm);
+    load_addr(eip, &m, rm); // now only implement 8bit imm
     if (load_rm_val) {
       rtl_lm(&rm->val, &rm->addr, rm->width);
     }
