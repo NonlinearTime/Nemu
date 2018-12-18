@@ -190,11 +190,11 @@ make_DHelper(r) {
 }
 
 make_DHelper(E) {
-  decode_op_rm(eip, id_dest, true, NULL, false);
-}
+  decode_op_rm(eip, id_dest, true, NULL, false);  
+} 
 
 make_DHelper(setcc_E) {
-  decode_op_rm(eip, id_dest, false, NULL, false);
+  decode_op_rm(eip, id_dest, false, NULL, false); // used for setcc
 }
 
 make_DHelper(gp7_E) {
