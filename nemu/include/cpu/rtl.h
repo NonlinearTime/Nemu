@@ -172,6 +172,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // M[esp] <- src1
   // TODO();
   cpu.esp -= 4;
+  printf("%x\n", cpu.esp);
   rtl_sm(&reg_l(R_ESP), src1, 4);
 }
 
