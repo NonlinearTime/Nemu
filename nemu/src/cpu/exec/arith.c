@@ -57,13 +57,40 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
+  rtl_addi(&t0, &id_dest->val, 1);
+  operand_write(id_dest, &t0);
+
+  rtl_setrelop(RELOP_LTU, &t1, &t0 , &id_dest->val);
+  rtl_set_CF(&t1);
+
+  rtl_update_ZFSF(&t0, id_dest->width);
+
+  rtl_li(&t1, 1);
+  rtl_xor(&t1, &id_dest->val, &t1);
+  rtl_not(&t1, &t1);
+  rtl_xor(&t2, &id_dest->val, &t0);
+  rtl_and(&t1, &t1, &t2);
+  rtl_msb(&t1, &t1, id_dest->width);
+  rtl_set_OF(&t1);
 
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+  rtl_subi(&t0, &id_dest->val, 1);
+  operand_write(id_dest, &t0);
+
+  rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
+  rtl_set_CF(&t1);
+
+  rtl_update_ZFSF(&t0, id_dest->width);
+
+  rtl_li(&t1, 1);
+  rtl_xor(&t1, &id_dest->val, &t1);
+  rtl_xor(&t2, &id_dest->val, &t0);
+  rtl_and(&t1, &t1, &t2);
+  rtl_msb(&t1, &t1, id_dest->width);
+  rtl_set_OF(&t1);
 
   print_asm_template1(dec);
 }
