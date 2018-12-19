@@ -30,6 +30,7 @@ make_EHelper(sub) {
 
   rtl_xor(&t1, &id_dest->val, &id_src->val);
   rtl_xor(&t2, &id_dest->val, &t0);
+  printf("%x %x\n", t1, t2);
   rtl_and(&t1, &t1, &t2);
   rtl_msb(&t1, &t1, id_dest->width);
   rtl_set_OF(&t1);
