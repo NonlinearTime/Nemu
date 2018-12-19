@@ -252,7 +252,7 @@ void exec_wrapper(bool print_flag) {
   printf(" eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
     reg_l(R_EAX), reg_l(R_ECX), reg_l(R_EDX), reg_l(R_EBX), reg_l(R_ESP), reg_l(R_EBP), reg_l(R_ESI), reg_l(R_EDI), cpu.eflags);
   printf(" cf:%d of:%d sf:%d zf:%d\n\n", cpu.CF, cpu.OF, cpu.SF, cpu.ZF);
-  printf("[esp]: 0x%x\n", vaddr_read(0x7bec, 4));
+  
   update_eip();
 
 #if defined(DIFF_TEST)
