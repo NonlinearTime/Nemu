@@ -12,5 +12,6 @@ int main() {
 	printf("%08x\n", a-b);
 
 	printf("%u\n", (363729771)*175863475);
+	
 	return 0;
 }
