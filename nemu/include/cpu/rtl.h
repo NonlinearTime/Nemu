@@ -190,7 +190,7 @@ static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  *dest = (*src1) & ((1 << ((width << 3) - 1)) == 0) ? 0 : 1;
+  *dest = ((*src1) & (1 << ((width << 3) - 1))) == 0 ? 0 : 1;
 }
 
 #define make_rtl_setget_eflags(f) \
