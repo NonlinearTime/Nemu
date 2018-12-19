@@ -29,7 +29,7 @@ make_EHelper(popa) {
 
 make_EHelper(leave) {
   rtl_addi(&reg_l(R_ESP), &reg_l(R_EBP), 0);    // only implement for 32bit 
-  // rtl_pop(&reg_l(R_EBP));
+  rtl_pop(&reg_l(R_EBP));
   // printf("0x%x\n", reg_l(R_EBP));
   print_asm("leave");
 }
