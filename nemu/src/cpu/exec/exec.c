@@ -239,13 +239,13 @@ void exec_wrapper(bool print_flag) {
   exec_real(&decoding.seq_eip);
 
 #ifdef DEBUG
-  int instr_len = decoding.seq_eip - ori_eip;
-  sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
-  strcat(decoding.asm_buf, decoding.assembly);
-  Log_write("%s\n", decoding.asm_buf);
-  if (print_flag) {
-    puts(decoding.asm_buf);
-  }
+  // int instr_len = decoding.seq_eip - ori_eip;
+  // sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
+  // strcat(decoding.asm_buf, decoding.assembly);
+  // Log_write("%s\n", decoding.asm_buf);
+  // if (print_flag) {
+  //   puts(decoding.asm_buf);
+  // }
 #endif
   printf("eip: 0x%x\n", decoding.seq_eip);// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
