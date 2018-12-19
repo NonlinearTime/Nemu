@@ -173,7 +173,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // TODO();
   cpu.esp -= 4;
   rtl_sm(&reg_l(R_ESP), src1, 4);
-  printf("[0x%x]: 0x%x\n", cpu.esp, vaddr_read(0x7bec, 4));
+  printf("[0x%x]: 0x%x\n", cpu.esp, vaddr_read(cpu.esp, 4));
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
