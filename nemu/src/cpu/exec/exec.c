@@ -249,7 +249,7 @@ void exec_wrapper(bool print_flag) {
 #endif
   // printf("eip: 0x%x\n", decoding.seq_eip);// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
-  printf("eip: 0x%x, eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
+  printf("eip: 0x%x\neax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
     ori_eip, reg_l(R_EAX), reg_l(R_ECX), reg_l(R_EDX), reg_l(R_EBX), reg_l(R_ESP), reg_l(R_EBP), reg_l(R_ESI), reg_l(R_EDI), cpu.eflags);
   update_eip();
 
