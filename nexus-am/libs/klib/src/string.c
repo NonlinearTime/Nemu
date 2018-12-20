@@ -10,7 +10,7 @@ char *strcpy(char* dst,const char* src) {
   int i = 0;
   while (1) {
     dst[i] = src[i];
-    if (src[i] == '\0') break;
+    if (!src[i]) break;
   }  
   return dst;
 }
