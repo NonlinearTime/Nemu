@@ -45,7 +45,7 @@ int memcmp(const void* s1, const void* s2, size_t n){
   unsigned char *us1 = (unsigned char *) s1;
   unsigned char *us2 = (unsigned char *) s2;
   for (i = 0 ; i < n; ++i) {
-    if (*(us1 + i) != *(us2 + i)) return *(us1 + i) != *(us2 + i);
+    if (*(us1 + i) != *(us2 + i)) return *(us1 + i) - *(us2 + i);
   }
   return 0;
 }
