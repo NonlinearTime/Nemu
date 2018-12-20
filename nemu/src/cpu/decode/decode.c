@@ -225,6 +225,10 @@ make_DHelper(I) {
   decode_op_I(eip, id_dest, true);  //id_dest <- imm
 }
 
+make_DHelper(SI) {
+  decode_op_SI(eip, id_src, true);  //id_dest <- imm
+}
+
 make_DHelper(r) {
   decode_op_r(eip, id_dest, true);  //id_dest <- reg number in opcode
 }
