@@ -7,7 +7,12 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  return NULL;
+  int i = 0;
+  while (1) {
+    dst[i] = src[i];
+    if (src[i] == '\0') break;
+  }  
+  return dst;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
