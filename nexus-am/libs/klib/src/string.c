@@ -16,11 +16,16 @@ char *strcpy(char* dst,const char* src) {
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
+  
   return NULL;
 }
 
 char* strcat(char* dst, const char* src) {
-  return NULL;
+  int i = 0, j = 0;
+  while (dst[j]) j++;
+  while (src[i]) dst[j++] = src[i++];
+  dst[j++] = '\0';
+  return dst;
 }
 
 int strcmp(const char* s1, const char* s2) {
