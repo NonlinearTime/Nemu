@@ -44,7 +44,7 @@ make_EHelper(ret) {
 }
 
 make_EHelper(call_rm) {
-  printf("%x\n", *eip + id_dest->val);
+  printf("%x\n", vaddr_read(0x1001e4, 4));
   if (decoding.is_operand_size_16)
     rtl_j((*eip + id_dest->val) & 0x0000ffff);
   else 
