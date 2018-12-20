@@ -99,7 +99,7 @@ opcode_entry opcode_table [512] = {
   /* 0x5c */	IDEX(r, pop), IDEX(r, pop), IDEX(r, pop), IDEX(r, pop),
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
-  /* 0x68 */	EMPTY, EMPTY, IDEXW(I, push, 1), EMPTY,
+  /* 0x68 */	IDEX(I, push), EMPTY, IDEXW(I, push, 1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x70 */	EMPTY, EMPTY, IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
   /* 0x74 */	IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
