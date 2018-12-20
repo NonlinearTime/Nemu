@@ -239,6 +239,10 @@ make_DHelper(E) {
   decode_op_rm(eip, id_dest, true, NULL, false);  
 } 
 
+make_DHelper(A) {
+  decode_op_a(eip, id_dest, true);  // used for cltd ...
+} 
+
 make_DHelper(setcc_E) {
   decode_op_rm(eip, id_dest, false, NULL, false); // used for setcc
 }
