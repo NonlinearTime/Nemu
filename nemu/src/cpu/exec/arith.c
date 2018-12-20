@@ -97,7 +97,34 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+  switch(id_dest->width) {
+    case 4: {
+      rtl_li(&t1, 0x80000000);
+      rtl_setrelop(RELOP_EQ, &t2, &id_dest->val, &t1);
+      break;
+    }
+    case 1: {
+      rtl_li(&t1, 0x80);
+      rtl_setrelop(RELOP_EQ, &t2, &id_dest->val, &t1);
+      break;
+    }
+    case 2: {
+      rtl_li(&t1, 0x8000);
+      rtl_setrelop(RELOP_EQ, &t2, &id_dest->val, &t1);
+      break;
+    }
+    default: assert(0);
+  }
+
+  rtl_set_OF(&t1);
+
+  t0 = -(id_dest->val);
+  operand_write(id_dest, &t0);
+  rtl_li(&t1, 0);
+  rtl_setrelop(RELOP_NE, &t1, &id_dest->val, &t1);
+  rtl_set_CF(&t1);
+
+  rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template1(neg);
 }
