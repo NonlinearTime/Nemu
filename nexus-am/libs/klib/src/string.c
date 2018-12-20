@@ -11,6 +11,7 @@ char *strcpy(char* dst,const char* src) {
   while (1) {
     dst[i] = src[i];
     if (!src[i]) break;
+    i++;
   }  
   return dst;
 }
