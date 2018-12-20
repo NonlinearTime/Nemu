@@ -3,7 +3,6 @@
 
 make_EHelper(test) {
   interpret_rtl_and(&t0, &id_dest->val, &id_src->val);
-  operand_write(id_dest, &t0);
 
   rtl_li(&t1, 0);
   rtl_set_CF(&t1);
