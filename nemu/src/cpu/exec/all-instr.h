@@ -16,6 +16,7 @@ make_EHelper(cwtl);
 
 // control
 make_EHelper(call);
+make_EHelper(call_rm);
 make_EHelper(ret);
 make_EHelper(jcc);
 make_EHelper(jmp);
