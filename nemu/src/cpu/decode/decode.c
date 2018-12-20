@@ -139,6 +139,23 @@ make_DHelper(mov_RMb2R) {
   decode_op_rm(eip, id_src, true, id_dest, false);      // src <- r/m(byte), dest <- reg
 }
 
+make_DHelper(mov_RMw2R) {
+  id_src->width = 2;
+  decode_op_rm(eip, id_src, true, id_dest, false);      // src <- r/m(byte), dest <- reg
+}
+
+make_DHelper(mov_SRMb2R) {
+  id_src->width = 1;
+  decode_op_rm(eip, id_src, true, id_dest, false);      // src <- (signed)r/m(byte), dest <- reg
+  rtl_sext(&id_src->val, &id_src->val, id_src->width);
+}
+
+make_DHelper(mov_SRMw2R) {
+  id_src->width = 2;
+  decode_op_rm(eip, id_src, true, id_dest, false);      // src <- (signed)r/m(byte), dest <- reg
+  rtl_sext(&id_src->val, &id_src->val, id_src->width);
+}
+
 make_DHelper(lea_M2G) {
   decode_op_rm(eip, id_src, false, id_dest, false);
 }
@@ -190,6 +207,12 @@ make_DHelper(Iw2r) {
   decode_op_r(eip, id_dest, true);
   id_src->width = 2;
   decode_op_I(eip, id_src, true);
+}
+
+make_DHelper(SIw2r) {
+  decode_op_r(eip, id_dest, true);
+  id_src->width = 2;
+  decode_op_SI(eip, id_src, true);
 }
 
 make_DHelper(mov_I2r) {
