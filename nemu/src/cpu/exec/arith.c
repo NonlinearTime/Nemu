@@ -199,7 +199,7 @@ make_EHelper(imul1) {
 // imul with two operands
 make_EHelper(imul2) {
   rtl_sext(&t0, &id_src->val, id_src->width);
-  rtl_sext(&t1, &id_dest->val, id_dest->width);
+  rtl_sext(&t1, &id_dest->val, id_dest->width);       // flags??????
 
   rtl_imul_lo(&t2, &t1, &t0);
   operand_write(id_dest, &t2);
