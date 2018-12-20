@@ -46,13 +46,12 @@ make_EHelper(ret) {
 make_EHelper(call_rm) {
   
   if (decoding.is_operand_size_16) {
-    rtl_sext(&t0, &id_dest->val, 2);
-    rtl_j((*eip + t0) & 0x0000ffff);
+    rtl_j(id_dest->val & 0x0000ffff);
   }
   else {
-    rtl_sext(&t0, &id_dest->val, 4);
-    rtl_j(*eip + t0);
-    printf("%x\n", t0);
+    // rtl_sext(&t0, &id_dest->val, 4);
+    rtl_j(id_dest->val);
+    // printf("%x\n", t0);
   }
 
   print_asm("call *%s", id_dest->str);
