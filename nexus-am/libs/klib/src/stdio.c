@@ -42,7 +42,7 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
     *buffer++ = rec[tmp];
   }
 
-  return vt >= 0 ? len : len + 1;
+  return vt >= 0 ? len - 1: len;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
