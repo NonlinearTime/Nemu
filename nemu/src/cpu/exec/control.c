@@ -38,7 +38,8 @@ make_EHelper(call) {
 
 make_EHelper(ret) {
   // only implement c3
-  rtl_pop(&cpu.eip);
+  rtl_pop(&t0);
+  rtl_jr(&t0);
   // printf("%x\n", *eip);
   print_asm("ret");
 }
