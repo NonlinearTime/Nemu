@@ -44,7 +44,7 @@ make_EHelper(ret) {
 }
 
 make_EHelper(call_rm) {
-  rtl_push(&cpu.eip);
+  rtl_push(eip);
   if (decoding.is_operand_size_16) {
     rtl_j(id_dest->val & 0x0000ffff);
   }
