@@ -90,12 +90,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           ctemp=va_arg(ap,int);
           *buffer++ =ctemp;
           break;
-        case ' ':
-          apd = ' ';
-          break;
-        case '0':
-        apd = '0';
-          break;
       }
     }
   }
