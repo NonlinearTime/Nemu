@@ -38,13 +38,13 @@ make_EHelper(call) {
 
 make_EHelper(ret) {
   // only implement c3
-  rtl_pop(eip);
+  rtl_pop(&cpu.eip);
   // printf("%x\n", *eip);
   print_asm("ret");
 }
 
 make_EHelper(call_rm) {
-  rtl_push(eip);
+  rtl_push(&cpu.eip);
   if (decoding.is_operand_size_16) {
     rtl_j(id_dest->val & 0x0000ffff);
   }
