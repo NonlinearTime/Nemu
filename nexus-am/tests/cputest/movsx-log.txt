@@ -4,11 +4,9 @@
 ===== the original log.txt =====
 
 [1;34m[src/monitor/monitor.c,72,load_img] The image is /home/haines/Documents/PA-2018/ics2018/nexus-am/tests/cputest/build/recursion-x86-nemu.bin[0m
-[1;34m[src/monitor/diff-test/diff-test.c,44,init_difftest] Differential testing: [1;32mON[0m[0m
-[1;34m[src/monitor/diff-test/diff-test.c,47,init_difftest] The result of every instruction will be compared with /home/haines/Documents/PA-2018/ics2018/nemu/tools/qemu-diff/build/qemu-so. This will help you a lot for debugging, but also significantly reduce the performance. If it is not necessary, you can turn it off in include/common.h.[0m
 [1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
 [1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 09:25:02, Dec 21 2018[0m
+[1;34m[src/monitor/monitor.c,36,welcome] Build time: 09:29:03, Dec 21 2018[0m
   100000:   bd 00 00 00 00                        movl $0x0,%ebp
   100005:   bc 00 7c 00 00                        movl $0x7c00,%esp
   10000a:   e8 0d 00 00 00                        call 10001c
