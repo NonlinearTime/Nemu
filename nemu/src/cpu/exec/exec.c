@@ -101,10 +101,10 @@ opcode_entry opcode_table [512] = {
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	IDEX(I, push), EMPTY, IDEXW(SI, push, 1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x70 */	EMPTY, EMPTY, IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
-  /* 0x74 */	IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
-  /* 0x78 */	IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
-  /* 0x7c */	IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1), IDEXW(jmp_call_I, jcc, 1),
+  /* 0x70 */	EMPTY, EMPTY, IDEXW(J, jcc, 1), IDEXW(J, jcc, 1),
+  /* 0x74 */	IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1),
+  /* 0x78 */	IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1),
+  /* 0x7c */	IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1), IDEXW(J, jcc, 1),
   /* 0x80 */	IDEXW(I2E, gp1, 1), IDEX(I2E, gp1), EMPTY, IDEX(SI2E, gp1),
   /* 0x84 */	IDEXW(G2E, test, 1), IDEX(G2E, test), EMPTY, EMPTY,
   /* 0x88 */	IDEXW(mov_G2E, mov, 1), IDEX(mov_G2E, mov), IDEXW(mov_E2G, mov, 1), IDEX(mov_E2G, mov),
@@ -239,13 +239,13 @@ void exec_wrapper(bool print_flag) {
   exec_real(&decoding.seq_eip);
 
 #ifdef DEBUG
-  // int instr_len = decoding.seq_eip - ori_eip;
-  // sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
-  // strcat(decoding.asm_buf, decoding.assembly);
-  // Log_write("%s\n", decoding.asm_buf);
-  // if (print_flag) {
-  //   puts(decoding.asm_buf);
-  // }
+  int instr_len = decoding.seq_eip - ori_eip;
+  sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
+  strcat(decoding.asm_buf, decoding.assembly);
+  Log_write("%s\n", decoding.asm_buf);
+  if (print_flag) {
+    puts(decoding.asm_buf);
+  }
 #endif
   printf("\033[1;31m eip: 0x%x: %s, op: %x\n\033[0m", ori_eip, decoding.assembly, decoding.opcode);// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
   // \033[1;31;40m eip: 0x%x\n \033[0m
