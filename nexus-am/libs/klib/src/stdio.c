@@ -42,7 +42,7 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
     *buffer++ = rec[tmp];
   }
 
-  return vt >= 0 ? len - 1: len;
+  return vt >= 0 ? len : len + 1;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -84,7 +84,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         case 's':
           stemp=(char*)va_arg(ap,char*);
           strcpy(buffer,stemp);
-          buffer+=strlen(stemp);
+          buffer+=strlen(stemp) - 1;
           break;
         case 'c':
           ctemp=va_arg(ap,int);
