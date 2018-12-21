@@ -35,7 +35,7 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
 	  while(j--) {
 		  *buffer++ = prefix;
 	  }
-    _putc(prefix_n - len);
+    _putc(prefix_n - len + '0');
     _putc('\n');
   }
 
