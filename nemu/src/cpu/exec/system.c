@@ -42,7 +42,7 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
-  TODO();
+  operand_write(id_dest, &id_src->val);
 
   print_asm_template2(in);
 
@@ -52,7 +52,7 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  TODO();
+  operand_write(id_dest, &id_src->val);
 
   print_asm_template2(out);
 
