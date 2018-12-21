@@ -39,94 +39,40 @@ int write_Int(char* buffer,int value) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  char c;
-  char *str = out;
-  const char *tmp;
-  char num_s[100];
-  int i,j,len,num;
-  int flag,field_width;
-
-  for(;*fmt; fmt++)
+  char* buffer = out;
+  // unsigned int buffer_length=strlen(buffer);
+  unsigned int fmt_length=strlen(fmt);
+  unsigned int index=0;
+     
+  int temp;
+  char ctemp;
+  char* stemp;
+     
+  for(index=0;index<fmt_length;++index)
   {
-      if(*fmt != '%')
-      {
-	  *str++ = *fmt;
-	  continue;
+    if(fmt[index]!='%')
+      (*buffer++)=fmt[index];
+    else {
+      index++;
+      switch(fmt[index]) {
+        case 'd':
+          temp=va_arg(ap,int);
+          buffer=buffer+write_Int(buffer,temp);
+          break;
+        case 's':
+          stemp=(char*)va_arg(ap,char*);
+          strcpy(buffer,stemp);
+          buffer+=strlen(stemp);
+          break;
+        case 'c':
+          ctemp=va_arg(ap,int);
+          *(buffer++)=ctemp;
+          break;
       }
-
-      flag = 0;
-      fmt++;
-      while(*fmt == ' ' || *fmt == '0')
-      {
-	if(*fmt == ' ')  flag |= 8;
-	else if(*fmt == '0') flag |= 1;
-	fmt++;
-      }
-      
-      field_width = 0;
-      if(*fmt >= '0' && *fmt <= '9')
-      {
-	      while(*fmt >= '0' && *fmt <= '9')
-	      {
-		      field_width = field_width*10 + *fmt -'0';
-		      fmt++;
-	      }
-      }
-      else if(*fmt == '*')
-      {
-	      fmt++;
-	      field_width = va_arg(ap,int);
-      }
-      //base = 10;
-
-      switch(*fmt)
-      {
-	  case 's':
-	      tmp = va_arg(ap,char *);
-	      len = strlen(tmp);
-	      for(i = 0;i < len;i ++)
-	      {
-		   *str++ = *tmp++;
-	      }
-	      continue;
-	  case 'd': break;
-      }
-
-      num = va_arg(ap,int);
-      j = 0;
-      if(num == 0)
-      {
-	  num_s[j++] = '0';
-      }
-      else
-      {
-	  if(num < 0)
-	  {
-	      *str++ = '-';
-	      num = -num;
-	  }
-	  //j = 0;
-	  while(num)
-	  {
-	      num_s[j++] = num%10 + '0';
-	      num /= 10;
-	  }
-      }
-      if(j < field_width)
-      {
-	      num = field_width - j;
-	      c = flag & 1 ? '0' : ' ';
-	      while(num--)
-	      {
-		      *str++ = c;
-	      }
-      }
-      while(j--)
-      {
-	  *str++ = num_s[j];
-      }
+    }
   }
-  *str = '\0';
+  *buffer = '\0';
+
   return 0;
 }
 
