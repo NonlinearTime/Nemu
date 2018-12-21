@@ -31,7 +31,7 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
   }
 
   if(len < prefix_n) {
-    int j = prefix_n - len;
+    int j = prefix_n - len + 1;
 	  while(j--) {
 		  *buffer++ = prefix;
 	  }
