@@ -31,10 +31,12 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
   }
 
   if(len < prefix_n) {
-    int j = prefix_n - len + 1;
+    int j = prefix_n - len;
 	  while(j--) {
 		  *buffer++ = prefix;
 	  }
+    _putc('f');
+    _putc('\n');
   }
 
   int tmp = len;
