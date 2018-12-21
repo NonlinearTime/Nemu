@@ -246,13 +246,13 @@ void exec_wrapper(bool print_flag) {
   if (print_flag) {
     puts(decoding.asm_buf);
   }
-#endif
-  // printf("\033[1;31m eip: 0x%x: %s, op: %x\n\033[0m", ori_eip, decoding.assembly, decoding.opcode);// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-  // // \033[1;31;40m eip: 0x%x\n \033[0m
-  // printf(" eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
-  //   reg_l(R_EAX), reg_l(R_ECX), reg_l(R_EDX), reg_l(R_EBX), reg_l(R_ESP), reg_l(R_EBP), reg_l(R_ESI), reg_l(R_EDI), cpu.eflags);
-  // printf(" cf:%d of:%d sf:%d zf:%d\n\n", cpu.CF, cpu.OF, cpu.SF, cpu.ZF);
-  
+
+  printf("\033[1;31m eip: 0x%x: %s, op: %x\n\033[0m", ori_eip, decoding.assembly, decoding.opcode);// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+  // \033[1;31;40m eip: 0x%x\n \033[0m
+  printf(" eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
+    reg_l(R_EAX), reg_l(R_ECX), reg_l(R_EDX), reg_l(R_EBX), reg_l(R_ESP), reg_l(R_EBP), reg_l(R_ESI), reg_l(R_EDI), cpu.eflags);
+  printf(" cf:%d of:%d sf:%d zf:%d\n\n", cpu.CF, cpu.OF, cpu.SF, cpu.ZF);
+ #endif 
   update_eip();
 
 #if defined(DIFF_TEST)
