@@ -64,15 +64,15 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       (*buffer++)=fmt[index];
     else {
       index++;
-      while(*fmt == ' ' || *fmt == '0') {
-        if(*fmt == ' ')  apd = ' ';
-        else if(*fmt == '0') apd = '0';
+      while(fmt[index] == ' ' || fmt[index] == '0') {
+        if(fmt[index] == ' ')  apd = ' ';
+        else if(fmt[index] == '0') apd = '0';
         index++;
       }
       width = 0;
-      if(*fmt >= '0' && *fmt <= '9') {
-	      while(*fmt >= '0' && *fmt <= '9') {
-		      width = width*10 + *fmt -'0';
+      if(fmt[index] >= '0' && fmt[index] <= '9') {
+	      while(fmt[index] >= '0' && fmt[index] <= '9') {
+		      width = width*10 + fmt[index] -'0';
 		      index++;
 	      }
       }
