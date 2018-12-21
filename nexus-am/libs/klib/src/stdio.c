@@ -50,6 +50,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
      
   for(index=0;index<fmt_length;++index)
   {
+    _putc(fmt[index]);
     if(fmt[index]!='%')
       (*buffer++)=fmt[index];
     else {
