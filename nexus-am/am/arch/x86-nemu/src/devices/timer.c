@@ -1,15 +1,17 @@
 #include <am.h>
 #include <x86.h>
 #include <amdev.h>
-#include <stdio.h>
+// #include <stdio.h>
+#define TIMER_PORT 0x48
 
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
       _UptimeReg *uptime = (_UptimeReg *)buf;
-      uptime->hi = 0;
-      uptime->lo = inb(0x48);
-      printf("lo: %x\n", uptime->lo);
+      uint64_t nt = inl(TIMER_PORT);
+      uptime->hi = nt >> 32;
+      uptime->lo = nt & 0xffffffff;
+      // printf("lo: %x\n", uptime->lo);
       return sizeof(_UptimeReg);
     }
     case _DEVREG_TIMER_DATE: {

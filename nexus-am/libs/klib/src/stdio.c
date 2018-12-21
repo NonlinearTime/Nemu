@@ -6,7 +6,10 @@
 int printf(const char *fmt, ...) {
   int i = 0;
   char buffer[1024];
-  sprintf(buffer, fmt);
+  va_list args;
+  va_start(args,fmt);
+  vsprintf(buffer,fmt,args);
+  va_end(args);
   while (buffer[i]) _putc(buffer[i++]);
   
   return 0;
