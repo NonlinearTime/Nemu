@@ -35,6 +35,7 @@ int write_Int(char* buffer,int value) {
     *buffer++ = rec[tmp];
     _putc(rec[tmp]);
     if (tmp == 0) break;
+    tmp--;
   }
   _putc(' ');
 
