@@ -33,11 +33,9 @@ int write_Int(char* buffer,int value) {
   int tmp = len - 1;
   while (1) {
     *buffer++ = rec[tmp];
-    _putc(rec[tmp]);
     if (tmp == 0) break;
     tmp--;
   }
-  _putc(' ');
 
   return vt >= 0 ? len : len + 1;
 }
