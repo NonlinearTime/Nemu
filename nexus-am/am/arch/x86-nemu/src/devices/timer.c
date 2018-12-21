@@ -8,7 +8,7 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
       _UptimeReg *uptime = (_UptimeReg *)buf;
-      unsigned long long nt = inl(TIMER_PORT);
+      uint64_t nt = inl(TIMER_PORT);
       uptime->hi = nt >> 32;
       uptime->lo = nt & 0xffffffff;
       // printf("lo: %x\n", uptime->lo);
