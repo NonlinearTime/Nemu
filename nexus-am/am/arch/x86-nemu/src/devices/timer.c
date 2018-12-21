@@ -1,6 +1,7 @@
 #include <am.h>
 #include <x86.h>
 #include <amdev.h>
+#include <stdio.h>
 
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
@@ -8,6 +9,7 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
       _UptimeReg *uptime = (_UptimeReg *)buf;
       uptime->hi = 0;
       uptime->lo = inb(0x48);
+      printf("lo: %x\n", uptime->lo);
       return sizeof(_UptimeReg);
     }
     case _DEVREG_TIMER_DATE: {
