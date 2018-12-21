@@ -68,7 +68,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           break;
         case 'c':
           ctemp=va_arg(ap,int);
-          *(buffer++)=ctemp;
+          *buffer++ =ctemp;
           break;
       }
     }
