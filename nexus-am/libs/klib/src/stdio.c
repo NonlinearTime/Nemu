@@ -29,8 +29,9 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
     value /= 10;
     if (!value) break;
   }
-
+  int tmp = len;
   if(len < prefix_n) {
+    len = prefix_n;
     int j = prefix_n - len;
 	  while(j--) {
 		  *buffer++ = prefix;
@@ -39,7 +40,7 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
     _putc('\n');
   }
 
-  int tmp = len;
+  
   while (tmp--) {
     *buffer++ = rec[tmp];
   }
