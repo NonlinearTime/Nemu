@@ -4,6 +4,11 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+  int i = 0;
+  char buffer[1024];
+  sprintf(buffer, fmt);
+  while (buffer[i]) _putc(buffer[i++]);
+  
   return 0;
 }
 
