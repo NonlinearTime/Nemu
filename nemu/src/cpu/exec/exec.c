@@ -43,7 +43,7 @@ static make_EHelper(name) { \
 // logic ?
 make_group(gp1,
     EX(add), EX(or), EX(adc), EX(sbb),
-    EX(and), EX(sub), EMPTY, EX(cmp))
+    EX(and), EX(sub), EX(xor), EX(cmp))
 
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
