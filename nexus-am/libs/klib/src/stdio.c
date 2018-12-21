@@ -21,7 +21,7 @@ int write_Int(char* buffer,int value) {
   int vt = value;
   if (value < 0) {
     value *= -1;
-    *(buffer++)='-';
+    *buffer++ = '-';
   }
   while (1) {
     int t = value % 10;
@@ -30,9 +30,10 @@ int write_Int(char* buffer,int value) {
     if (!value) break;
   }
 
-  int tmp = len;
-  while (tmp--) {
-    *buffer++ = rec[tmp - 1];
+  int tmp = len - 1;
+  while (1) {
+    *buffer++ = rec[tmp];
+    if (tmp == 0) break;
   }
 
   return vt >= 0 ? len : len + 1;
