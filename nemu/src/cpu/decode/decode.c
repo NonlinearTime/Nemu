@@ -226,7 +226,7 @@ make_DHelper(I) {
 }
 
 make_DHelper(SI) {
-  decode_op_SI(eip, id_src, true);  //id_dest <- imm
+  decode_op_SI(eip, id_dest, true);  //id_dest <- simm
 }
 
 make_DHelper(r) {
