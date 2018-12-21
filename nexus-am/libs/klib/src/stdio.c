@@ -15,7 +15,7 @@ int printf(const char *fmt, ...) {
   return 0;
 }
 
-int write_Int(char* buffer,int value) {
+int write_Int(char* buffer,int value, int prefix_n, char prefix) {
   int len = 0;
   char rec[100];
   int vt = value;
@@ -30,11 +30,16 @@ int write_Int(char* buffer,int value) {
     if (!value) break;
   }
 
-  int tmp = len - 1;
-  while (1) {
+  if(len < prefix_n) {
+    int j = prefix_n - len;
+	  while(j--) {
+		  *buffer++ = prefix;
+	  }
+  }
+
+  int tmp = len;
+  while (tmp--) {
     *buffer++ = rec[tmp];
-    if (tmp == 0) break;
-    tmp--;
   }
 
   return vt >= 0 ? len : len + 1;
@@ -49,7 +54,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int temp;
   char ctemp;
   char* stemp;
-     
+  int width = 0;
+  char apd = ' ';
+
   for(index=0;index<fmt_length;++index)
   {
     // _putc(fmt[index]);
@@ -57,10 +64,22 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       (*buffer++)=fmt[index];
     else {
       index++;
+      while(*fmt == ' ' || *fmt == '0') {
+        if(*fmt == ' ')  apd = ' ';
+        else if(*fmt == '0') apd = '0';
+        index++;
+      }
+      width = 0;
+      if(*fmt >= '0' && *fmt <= '9') {
+	      while(*fmt >= '0' && *fmt <= '9') {
+		      width = width*10 + *fmt -'0';
+		      index++;
+	      }
+      }
       switch(fmt[index]) {
         case 'd':
           temp=va_arg(ap,int);
-          buffer=buffer+write_Int(buffer,temp);
+          buffer=buffer+write_Int(buffer,temp, width, apd);
           break;
         case 's':
           stemp=(char*)va_arg(ap,char*);
@@ -70,6 +89,12 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         case 'c':
           ctemp=va_arg(ap,int);
           *buffer++ =ctemp;
+          break;
+        case ' ':
+          apd = ' ';
+          break;
+        case '0':
+        apd = '0';
           break;
       }
     }
