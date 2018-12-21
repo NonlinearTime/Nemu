@@ -122,7 +122,11 @@ static int cmd_info(char *args) {
       printf("ebp 0x%x 0x%x\n", reg_l(R_EBP), reg_l(R_EBP));
       printf("esi 0x%x %d\n", reg_l(R_ESI), reg_l(R_ESI));
       printf("edi 0x%x %d\n", reg_l(R_EDI), reg_l(R_EDI));
-      printf("eip 0x%x 0x%x %s\n", cpu.eip, cpu.eip, decoding.assembly);
+      #ifdef DEBUG
+        printf("eip 0x%x 0x%x %s\n", cpu.eip, cpu.eip, decoding.assembly);
+      #else
+        printf("eip 0x%x 0x%x\n", cpu.eip, cpu.eip);
+      #endif
       return 0;
     } else if (strcmp(arg, "w") == 0) {
       print_watchpoints();
