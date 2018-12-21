@@ -55,7 +55,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       (*buffer++)=fmt[index];
     else {
       index++;
-      _putc(fmt[index]);
       switch(fmt[index]) {
         case 'd':
           temp=va_arg(ap,int);
