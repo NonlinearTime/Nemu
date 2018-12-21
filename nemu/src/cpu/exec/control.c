@@ -13,6 +13,7 @@ make_EHelper(jcc) {
   uint32_t cc = decoding.opcode & 0xf;
   rtl_setcc(&t0, cc);
   rtl_li(&t1, 0);
+  printf("%d %d \n", t0, t1);
   rtl_jrelop(RELOP_NE, &t0, &t1, decoding.jmp_eip);
 
   print_asm("j%s %x", get_cc_name(cc), decoding.jmp_eip);
