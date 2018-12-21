@@ -69,6 +69,10 @@ make_group(gp5,
 make_group(gp7,
     EMPTY, EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
+//   /* 0xd3*/
+// make_group(gp8,
+//     EMPTY, EMPTY, EMPTY, EMPTY,
+//     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
 
