@@ -10,7 +10,7 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
       _UptimeReg *uptime = (_UptimeReg *)buf;
       uint64_t nt = inl(TIMER_PORT);
       uptime->hi = nt >> 32;
-      uptime->lo = nt & 0x00000000ffffffff;
+      uptime->lo = nt & 0xffffffff;
       // printf("lo: %x\n", uptime->lo);
       return sizeof(_UptimeReg);
     }
