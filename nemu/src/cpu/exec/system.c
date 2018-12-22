@@ -8,12 +8,13 @@ make_EHelper(lidt) {
   // interpret_rtl_host_lm(&cpu.idtr.limit, id_dest->val, 2);
   // interpret_rtl_host_lm(&cpu.idtr.base, id_dest->val + 16, 4);
   cpu.idtr.limit = vaddr_read(id_dest->val, 2);
+  cpu.idtr.base = vaddr_read(id_dest->val + 16, 4);
 #ifdef DEBUG
   printf("lidt: 0x%x\n", id_dest->val);
   printf("lidt: 0x%x\n", id_dest->val + 16);
 #endif
   printf("lidt: 0x%x 0x%x\n", id_dest->val, cpu.idtr.base);
-  cpu.idtr.base = vaddr_read(id_dest->val + 16, 4);
+  
   if (decoding.is_operand_size_16) {
     cpu.idtr.base &= 0x00ffffff;
   }
