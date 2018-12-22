@@ -27,6 +27,7 @@ int main() {
 
   init_proc();
 
+  Log("fuck");
 #ifdef HAS_CTE
   _yield();
 #endif
