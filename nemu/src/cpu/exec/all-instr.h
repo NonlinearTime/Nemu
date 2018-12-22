@@ -13,6 +13,8 @@ make_EHelper(pop);
 make_EHelper(lea);
 make_EHelper(cltd);
 make_EHelper(cwtl);
+make_EHelper(pusha);
+
 
 // control
 make_EHelper(call);

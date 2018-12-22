@@ -10,10 +10,8 @@ make_EHelper(lidt) {
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
   cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
 #ifdef DEBUG
-  printf("lidt: 0x%x\n", id_dest->val);
-  printf("lidt: 0x%x\n", id_dest->val + 16);
-#endif
   printf("lidt: 0x%x 0x%x\n", id_dest->addr, cpu.idtr.base);
+#endif
   
   if (decoding.is_operand_size_16) {
     cpu.idtr.base &= 0x00ffffff;
