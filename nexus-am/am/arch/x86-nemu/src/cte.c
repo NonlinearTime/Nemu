@@ -1,7 +1,6 @@
 #include <am.h>
 #include <x86.h>
 // #include <stdio.h>
-#include "klib.h"
 
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
@@ -10,9 +9,9 @@ void vecnull();
 
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
-  printf("irq_handle:\n");
-  printf("eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%x, eflags: 0x%x\n", 
-  tf->eax, tf->ecx, tf->edx, tf->ebx, tf->esp, tf->ebp, tf->esi, tf->edi, tf->eflags);
+  // printf("irq_handle:\n");
+  // printf("eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%x, eflags: 0x%x\n", 
+  // tf->eax, tf->ecx, tf->edx, tf->ebx, tf->esp, tf->ebp, tf->esi, tf->edi, tf->eflags);
   if (user_handler) {
     _Event ev = {0};
     switch (tf->irq) {
