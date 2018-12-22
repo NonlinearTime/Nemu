@@ -8,24 +8,24 @@ void vectrap();
 void vecnull();
 
 _Context* irq_handle(_Context *tf) {
-  // _Context *next = tf;
+  _Context *next = tf;
   printf("irq_handle:\n");
   printf("eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%x, eflags: 0x%x\n", 
   tf->eax, tf->ecx, tf->edx, tf->ebx, tf->esp, tf->ebp, tf->esi, tf->edi, tf->eflags);
   return tf;
-  // if (user_handler) {
-  //   _Event ev = {0};
-  //   switch (tf->irq) {
-  //     default: ev.event = _EVENT_ERROR; break;
-  //   }
+  if (user_handler) {
+    _Event ev = {0};
+    switch (tf->irq) {
+      default: ev.event = _EVENT_ERROR; break;
+    }
 
-  //   next = user_handler(ev, tf);
-  //   if (next == NULL) {
-  //     next = tf;
-  //   }
-  // }
+    next = user_handler(ev, tf);
+    if (next == NULL) {
+      next = tf;
+    }
+  }
 
-  // return next;
+  return next;
 }
 
 static GateDesc idt[NR_IRQ];
