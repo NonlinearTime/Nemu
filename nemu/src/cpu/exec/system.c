@@ -12,6 +12,7 @@ make_EHelper(lidt) {
   printf("lidt: 0x%x\n", id_dest->val);
   printf("lidt: 0x%x\n", id_dest->val + 16);
 #endif
+  printf("lidt: 0x%x\n", id_dest->val);
   cpu.idtr.base = vaddr_read(id_dest->val + 16, 4);
   if (decoding.is_operand_size_16) {
     cpu.idtr.base &= 0x00ffffff;
