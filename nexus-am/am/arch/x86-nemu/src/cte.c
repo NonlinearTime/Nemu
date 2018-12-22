@@ -1,6 +1,7 @@
 #include <am.h>
 #include <x86.h>
-#include <stdio.h>
+// #include <stdio.h>
+#include "klib.h"
 
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
