@@ -14,7 +14,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   t0 = vaddr_read(t1, 2);
   t2 = vaddr_read(t1 + 32, 4);
   t1 = t0 + (t2 & 0xffff0000);
-  printf("raise_intr: 0x%x\n", t1);
+  // printf("raise_intr: 0x%x\n", t1);
   rtl_jr(&t1);
 }
 
