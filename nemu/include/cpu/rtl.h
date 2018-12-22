@@ -129,6 +129,17 @@ void interpret_rtl_exit(int state);
 
 
 /* RTL pseudo instructions */
+static inline void rtl_rol(rtlreg_t *dest, const rtlreg_t* src1, const rtlreg_t* src2) {
+  rtlreg_t tmp = *src1;
+  at = * src2;
+  while (at--) {
+    if (tmp >> 31 == 1) {
+      tmp = tmp << 1 | 0x1;
+    } else tmp = tmp << 1;
+  }
+  *dest = tmp;
+}
+
 
 static inline void rtl_lr(rtlreg_t* dest, int r, int width) {
   switch (width) {

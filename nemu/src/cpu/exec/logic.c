@@ -52,6 +52,25 @@ make_EHelper(or) {
   print_asm_template2(or);
 }
 
+make_EHelper(rol) {
+  rtl_rol(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
+
+  rtl_msb(&t1, &t0, id_dest->width);
+  rtl_get_CF(&t2);
+  interpret_rtl_xor(&t1, &t1, &t2);
+  rtl_set_CF(&t1);
+
+  rtl_msb(&t1, &id_dest->val, id_dest->width);
+
+  rtl_li(&t0, 1);
+  rtl_setrelop(RELOP_EQ, &t0, &id_src->val, &t0);
+  rtl_setrelop(RELOP_NE, &t1, &t2, &t1);
+  if (t0) rtl_set_OF(&t1);
+
+  print_asm_template2(rol);
+}
+
 make_EHelper(sar) {
   interpret_rtl_sar(&t0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t0);
