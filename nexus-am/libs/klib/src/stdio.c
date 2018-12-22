@@ -15,7 +15,7 @@ int printf(const char *fmt, ...) {
   return 0;
 }
 
-int write_Int(char* buffer,int value, int prefix_n, char prefix) {
+int write_Int(char* buffer,int value, int prefix_n, char prefix, int digit) {
   int len = 0;
   char rec[100];
   int vt = value;
@@ -24,9 +24,15 @@ int write_Int(char* buffer,int value, int prefix_n, char prefix) {
     *buffer++ = '-';
   }
   while (1) {
-    int t = value % 10;
-    rec[len++] = '0' + t;
-    value /= 10;
+    if (digit) {
+      int t = value % 10;
+      rec[len++] = '0' + t;
+      value /= 10;
+    } else {
+      int t = value % 16;
+      rec[len++] = t < 10 ? '0' + t : 'a' + t - 10;
+      value /= 16;
+    }
     if (!value) break;
   }
   int tmp = len;
@@ -79,7 +85,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       switch(fmt[index]) {
         case 'd':
           temp=va_arg(ap,int);
-          buffer=buffer+write_Int(buffer,temp, width, apd);
+          buffer=buffer+write_Int(buffer,temp, width, apd, 1);
           break;
         case 's':
           stemp=(char*)va_arg(ap,char*);
@@ -89,6 +95,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         case 'c':
           ctemp=va_arg(ap,int);
           *buffer++ =ctemp;
+          break;
+        case 'x':
+          temp=va_arg(ap,int);
+          buffer=buffer+write_Int(buffer,temp, width, apd, 0);
           break;
       }
     }
