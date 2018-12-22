@@ -57,9 +57,16 @@ typedef struct {
           uint32_t VIP:   1;
           uint32_t ID:    1;
           uint32_t :      14;
-        };
+        };              
         uint32_t eflags;
       };
+
+      struct {
+        uint32_t base;
+        uint16_t limit;
+      } idtr;
+
+      uint32_t cs;
     };
   };
 

@@ -40,4 +40,4 @@ static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
 
 #endif
 
-
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
