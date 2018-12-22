@@ -47,11 +47,11 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  rtl_pop(eip);
-  printf("iret: 0x%x\n", *eip);
+  rtl_pop(&t0);
+  // printf("iret: 0x%x\n", *eip);
   rtl_pop(&cpu.cs);
   rtl_pop(&cpu.eflags);
-  // rtl_jr(eip);
+  rtl_jr(&t0);
 
   print_asm("iret");
 }
