@@ -8,7 +8,7 @@ make_EHelper(lidt) {
   // interpret_rtl_host_lm(&cpu.idtr.limit, id_dest->val, 2);
   // interpret_rtl_host_lm(&cpu.idtr.base, id_dest->val + 16, 4);
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
-  cpu.idtr.base = vaddr_read(id_dest->addr + 16, 4);
+  cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
 #ifdef DEBUG
   printf("lidt: 0x%x\n", id_dest->val);
   printf("lidt: 0x%x\n", id_dest->val + 16);
