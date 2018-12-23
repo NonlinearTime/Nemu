@@ -5,7 +5,9 @@
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
 void vectrap();
+void vecsys();
 void vecnull();
+void irq0();
 
 // struct _Context {
 //   uintptr_t esp;
@@ -50,6 +52,8 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
   }
 
   // -------------------- system call --------------------------
+  idt[0x32] = GATE(STS_TG32, KSEL(SEG_KCODE), irq0, DPL_KERN);
+  idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_KERN);
   idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap, DPL_KERN);
 
   set_idt(idt, sizeof(idt));
