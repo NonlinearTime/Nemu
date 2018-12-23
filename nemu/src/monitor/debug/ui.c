@@ -150,7 +150,7 @@ static int cmd_x(char *args) {
   sscanf(hex, "%x", &p);
 
   for (i = 0; i < n; ++i) {
-    int cxt = paddr_read(p, 1);
+    int cxt = paddr_read(p + i, 1);
     printf("%02x ", cxt);
     p += 1;
   }
