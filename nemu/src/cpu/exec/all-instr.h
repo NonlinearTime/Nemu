@@ -14,6 +14,7 @@ make_EHelper(lea);
 make_EHelper(cltd);
 make_EHelper(cwtl);
 make_EHelper(pusha);
+make_EHelper(popa);
 
 
 // control
