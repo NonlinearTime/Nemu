@@ -39,7 +39,7 @@ size_t sys_write(int fd, void *buf, size_t count) {
     for (i = 0; i < count; ++i) {
       _putc(*((char *)buf + i));
     }
-    Log("sys_write\n");
+    // Log("sys_write\n");
     return i;
   }
   return 0;
