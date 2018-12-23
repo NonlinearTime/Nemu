@@ -25,6 +25,7 @@ _Context* irq_handle(_Context *tf) {
   // tf->esp, tf->prot, tf->edi, tf->esi, tf->ebp, tf->ori_esp, tf->ebx, tf->edx, tf->ecx, tf->eax, tf->irq, tf->err, tf->eip, tf->cs, tf->eflags);;
   if (user_handler) {
     _Event ev = {0};
+    printf("irq: %x\n", tf->irq);
     switch (tf->irq) {
       case 0x80: ev.event = _EVENT_SYSCALL; break;
       case 0x81: ev.event = _EVENT_YIELD; break;
