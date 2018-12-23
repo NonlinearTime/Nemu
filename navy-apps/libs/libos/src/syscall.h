@@ -24,4 +24,8 @@ enum {
   SYS_gettimeofday
 };
 
+
+extern char end;
+static volatile void * program_brk = 0;
+
 #endif

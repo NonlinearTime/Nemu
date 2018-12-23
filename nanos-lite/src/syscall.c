@@ -6,7 +6,6 @@ void sys_exit(int code);
 size_t sys_write(int fd, void *buf, size_t count);
 size_t sys_brk(void * addr);
 
-
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -46,6 +45,6 @@ size_t sys_write(int fd, void *buf, size_t count) {
 }
 
 size_t sys_brk(void * addr) {
-  
+  program_brk = addr;
   return 0;
 }
