@@ -14,8 +14,9 @@ size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   uint32_t len = get_ramdisk_size();
   char buf[len];
+  uint32_t s = DEFAULT_ENTRY;
   ramdisk_read(buf, 0, len);
-
+  memcpy(&s, buf, len);
   
   return DEFAULT_ENTRY;
 }
