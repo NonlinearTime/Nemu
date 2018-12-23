@@ -42,7 +42,7 @@ make_EHelper(cmp) {
   rtl_sub(&t0, &id_dest->val, &id_src->val);
   // operand_write(id_dest, &t0);
   #ifdef DEBUG
-  printf("cmp: %x %x\n", id_dest->val, id_src->val);
+  // printf("cmp: %x %x\n", id_dest->val, id_src->val);
   #endif
 
   rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
