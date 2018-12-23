@@ -11,7 +11,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtl_push(&ret_addr);
   t0 = cpu.idtr.base;
   t1 = t0 + 8 * NO;
-  printf("raise_intr: 0x%x 0x%x\n", t0, t1);
+  printf("raise_intr: 0x%x 0x%x 0x%x\n",NO, t0, t1);
   #ifdef DEBUG
   // printf("raise_intr: 0x%x 0x%x 0x%x\n", cpu.eflags, cpu.cs, ret_addr);
   #endif
