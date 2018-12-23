@@ -15,7 +15,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   uint32_t len = get_ramdisk_size();
   char buf[len];
   ramdisk_read(buf, 0, len);
-  ramdisk_write(buf, len, len);
+
+  
   return DEFAULT_ENTRY;
 }
 

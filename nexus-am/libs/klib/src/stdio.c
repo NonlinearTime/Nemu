@@ -100,6 +100,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           temp=va_arg(ap,int);
           buffer=buffer+write_Int(buffer,temp, width, apd, 0);
           break;
+        case 'p':
+          temp=va_arg(ap,int);
+          buffer=buffer+write_Int(buffer,temp, width, apd, 0);
+          break;
       }
     }
   }
