@@ -22,6 +22,10 @@ intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
 #error _syscall_ is not implemented
 #endif
 
+extern char end;
+
+static volatile intptr_t program = end;
+
 void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
   while (1);
@@ -38,7 +42,9 @@ int _write(int fd, void *buf, size_t count){
 }
 
 void *_sbrk(intptr_t increment){
-  return (void *)-1;
+  if (_syscall_(SYS_write, increment, 0, 0) == 0) {
+    return (void *)0;
+  } else return (void *)-1;
 }
 
 int _read(int fd, void *buf, size_t count) {
