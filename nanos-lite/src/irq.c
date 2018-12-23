@@ -2,6 +2,7 @@
 
 static _Context* do_event(_Event e, _Context* c) {
   switch (e.event) {
+    case 0x81: panic("event ID = %d", e.event);
     default: panic("Unhandled event ID = %d", e.event);
   }
 
