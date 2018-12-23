@@ -17,7 +17,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   uint32_t s = DEFAULT_ENTRY;
   ramdisk_read(buf, 0, len);
   
-  memcpy(&s, buf, len);
+  memcpy((void *)s, buf, len);
   printf("len: %d\n", len);
   return DEFAULT_ENTRY;
 }
