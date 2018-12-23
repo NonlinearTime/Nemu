@@ -163,7 +163,7 @@ static int cmd_x(char *args) {
 static int cmd_p(char *args) {
   bool success;
   uint32_t res = expr(args, &success);
-  if(success) printf("%u\n",res);
+  if(success) printf("%x\n",res);
   return 0;
 }
 
