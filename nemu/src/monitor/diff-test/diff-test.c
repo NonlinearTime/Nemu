@@ -85,6 +85,6 @@ void difftest_step(uint32_t eip) {
         reg_l(R_EAX), reg_l(R_ECX), reg_l(R_EDX), reg_l(R_EBX), reg_l(R_ESP), reg_l(R_EBP), reg_l(R_ESI), reg_l(R_EDI), cpu.eflags);
       printf("qemu-ref: eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%X, eflags: 0x%x\n", 
         ref_r.eax, ref_r.ecx, ref_r.edx, ref_r.ebx, ref_r.esp, ref_r.ebp, ref_r.esi, ref_r.edi, ref_r.eflags);
-      nemu_state = NEMU_ABORT;
+      nemu_state = NEMU_STOP;
     }
 }
