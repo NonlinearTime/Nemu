@@ -6,7 +6,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
   for (i = 0; i < len; ++i) {
     _putc(*((char *)buf + i));
   }
-  // Log("sys_write: %d byte\n", i);
+  Log("sys_write: %d byte\n", i);
   return i;
 }
 
