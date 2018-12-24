@@ -16,7 +16,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   uint32_t len = fs_filesz(fd);
-  uint32_t blen = 256;
+  uint32_t blen = 1024;
   uint32_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
   char buf[blen];
