@@ -52,12 +52,12 @@ make_EHelper(leave) {
 
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
-    rtl_msb(&t0, &id_dest->val, 2);
+    rtl_msb(&t0, (uint32_t*)&reg_w(R_EAX), 2);
     if (t0) reg_w(R_EDX) = 0xffff;
     else reg_w(R_EDX) = 0;
   }
   else {
-    rtl_msb(&t0, &id_dest->val, 4);
+    rtl_msb(&t0, (uint32_t*)&reg_l(R_EAX), 4);
     if (t0) reg_l(R_EDX) = 0xffffffff;
     else reg_l(R_EDX) = 0;
   }
@@ -67,12 +67,12 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
-    rtl_msb(&t0, &id_dest->val, 1);
+    rtl_msb(&t0, (uint32_t*)&reg_b(R_EAX), 1);
     if (t0) reg_b(R_EDX) = 0xff;
     else reg_b(R_EDX) = 0;
   }
   else {
-    rtl_msb(&t0, &id_dest->val, 2);
+    rtl_msb(&t0, (uint32_t*)&reg_b(R_EAX), 2);
     if (t0) reg_w(R_EDX) = 0xffff;
     else reg_w(R_EDX) = 0;
   }
