@@ -49,6 +49,7 @@ void init_fs() {
     file_table[i].open_offset = 0;
   }
   file_table[3].size = screen_height() * screen_width() * 4;
+  Log("init_fs: %d\n", file_table[3].size);
   file_table[0].size = file_table[1].size = file_table[2].size = 0x7fffffff;
 }
 
@@ -69,7 +70,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   size_t l = file_table[fd].open_offset + len <= file_table[fd].size ? len : file_table[fd].size - file_table[fd].open_offset;
   // ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
-  Log("fs_read: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, len);
+  Log("fs_read: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
   file_table[fd].open_offset += l;
   return l; 
 }

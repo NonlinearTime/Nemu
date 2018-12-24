@@ -26,12 +26,14 @@ static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   strncpy(buf, dispinfo, len);
+  Log("dispinfo_read: %s\n", buf);
   return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   int x = offset / screen_width();
   int y = offset % screen_height();
+  Log("fb_write: x %d y %d\n", x, y);
   draw_rect((uint32_t* )buf, x, y, len, 1);
   return len;
 }
