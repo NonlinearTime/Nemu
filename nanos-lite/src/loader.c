@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   char buf[len];
   uint32_t s = DEFAULT_ENTRY;
   // ramdisk_read(buf, 0, len);
+  Log("fuck\n");
   fs_read(fd, buf, len);
   
   memcpy((void *)s, buf, len);
@@ -26,7 +27,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
-  Log("fuck\n");
   ((void(*)())entry) ();
 }
 
