@@ -12,12 +12,23 @@ extern size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 // 返回ramdisk的大小, 单位为字节
 extern size_t get_ramdisk_size();
 
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   uint32_t len = fs_filesz(fd);
-  
-  // uint32_t s = DEFAULT_ENTRY;
+  uint32_t blen = 256;
+  uint32_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
+  char buf[blen];
+  while (len > blen) {
+    fs_read(fd, buf, blen);
+    memcpy((void *)s, buf , blen);
+    s += blen;
+    len -= blen;
+  }
+  fs_read(fd, buf, len);
+  memcpy((void *)s, buf , len);
+
   // Log("file length: 0x%x\n", len);
   // fs_read(fd, buf, len);
   
