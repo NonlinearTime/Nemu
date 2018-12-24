@@ -11,6 +11,8 @@ ssize_t sys_read(int fd, void *buf, size_t len);
 off_t sys_lseek(int fd, off_t offset, int whence);
 int sys_close(int fd);
 
+intptr_t program_brk;
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
