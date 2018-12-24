@@ -22,6 +22,7 @@ intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
 #error _syscall_ is not implemented
 #endif
 
+extern void* program_brk;
 
 void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
@@ -38,8 +39,11 @@ int _write(int fd, void *buf, size_t count){
 }
 
 void *_sbrk(intptr_t increment){
-  if (program_brk == (void *)-1) program_brk = (void *)end;
   // printf("SRK: %p\n",program_brk);
+  if (program_brk == 0) program_brk = end;
+  char buf[30];
+  sprintf("SRK: %p\n",program_brk);
+  _write(1, buf, 20);
   void* program_brk_old = program_brk;
   if (_syscall_(SYS_brk, program_brk + increment, 0, 0) == 0) 
     return (void *)program_brk_old;
