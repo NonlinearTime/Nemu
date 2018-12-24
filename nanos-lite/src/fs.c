@@ -33,7 +33,10 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   int i;
   for (i = 0; i < NR_FILES; ++i) {
-    if (strcmp(pathname, file_table[i].name) == 0) return i;
+    if (strcmp(pathname, file_table[i].name) == 0) {
+      file_table[i].open_offset = 0;
+      return i;
+    }
   }
   panic("Unknown file %s\n", pathname);
 }
