@@ -24,6 +24,7 @@ int main() {
 #endif
 
   init_fs();
+  Log("fuck\n");
 
   init_proc();
 
