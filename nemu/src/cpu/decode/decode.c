@@ -235,7 +235,7 @@ make_DHelper(r) {
 
 make_DHelper(jmp_call_I) {
   decode_op_SI(eip, id_dest, true);
-  decoding.jmp_eip = *eip + id_dest->val;
+  decoding.jmp_eip = *eip + id_dest->simm;
   // printf("0x%x\n", id_dest->simm);
 }
 

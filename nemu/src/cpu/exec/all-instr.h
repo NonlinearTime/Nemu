@@ -15,7 +15,8 @@ make_EHelper(cltd);
 make_EHelper(cwtl);
 make_EHelper(pusha);
 make_EHelper(popa);
-
+make_EHelper(movsx);
+make_EHelper(movzx);
 
 // control
 make_EHelper(call);
