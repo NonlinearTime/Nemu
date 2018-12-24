@@ -36,14 +36,16 @@ int _write(int fd, void *buf, size_t count){
   // return 0;
 }
 
+
 void *_sbrk(intptr_t increment){
   // printf("SRK: %p\n",program_brk);
+  
   if (program_brk == -1) program_brk = end;
   char buf[30];
   buf[29] = '\0';
   sprintf(buf, "SRK: %p %d\n",program_brk, increment);
   _write(1, buf, 13);
-  void* program_brk_old = program_brk;
+  intptr_t program_brk_old = program_brk;
   if (_syscall_(SYS_brk, program_brk + increment, 0, 0) == 0) 
     return (void *)program_brk_old;
   else return (void *)-1;
