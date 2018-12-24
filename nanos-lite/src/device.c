@@ -2,7 +2,12 @@
 #include <amdev.h>
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  size_t i;
+  for (i = 0; i < len; ++i) {
+    _putc(*((char *)buf + i));
+  }
+  Log("sys_write: %d byte\n", i);
+  return i;
 }
 
 #define NAME(key) \
@@ -20,11 +25,15 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  strncpy(buf, dispinfo, len);
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  int x = offset / screen_width();
+  int y = offset % screen_height();
+  draw_rect((uint32_t* )buf, x, y, len, 1);
+  return len;
 }
 
 void init_device() {
@@ -33,4 +42,6 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
+  sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", screen_width(), screen_height());
+
 }

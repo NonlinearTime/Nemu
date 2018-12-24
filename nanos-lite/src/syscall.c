@@ -43,18 +43,7 @@ void sys_exit(int code) {
 }
 
 size_t sys_write(int fd, void *buf, size_t count) {
-  if (fd == 0) return 0;
-  if (fd == 1 || fd == 2) {
-    size_t i;
-    for (i = 0; i < count; ++i) {
-      _putc(*((char *)buf + i));
-    }
-    // Log("sys_write\n");
-    return i;
-  } else {
-    return fs_write(fd, buf, count);
-  }
-  return 0;
+  return fs_write(fd, buf, count);
 }
 
 size_t sys_brk(void * addr) {

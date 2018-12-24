@@ -1,12 +1,32 @@
 #include "fs.h"
 
+typedef struct {
+  char *name;
+  size_t size;
+  size_t disk_offset;
+  ReadFn read;
+  WriteFn write;
+  size_t open_offset;
+} Finfo;
+
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
+
+
+extern size_t serial_write(const void *buf, size_t offset, size_t len);
+extern size_t fb_write(const void *buf, size_t offset, size_t len);
+extern size_t dispinfo_read(void *buf, size_t offset, size_t len);
+
 /* This is the information about all files in disk. */
+
 static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, invalid_read, serial_write},
+  {"stderr", 0, 0, invalid_read, serial_write},
+  {"/dev/fb",0, 0, invalid_read, fb_write},
+  {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
 #include "files.h"
 };
+
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -23,11 +43,12 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   int i;
-  for (i = 3; i < NR_FILES; ++i) {
-    file_table[i].read = (ReadFn)fs_read;
-    file_table[i].write = (WriteFn)fs_write;
+  for (i = 5; i < NR_FILES; ++i) {
+    file_table[i].read = (ReadFn)ramdisk_read;
+    file_table[i].write = (WriteFn)ramdisk_write;
     file_table[i].open_offset = 0;
   }
+  file_table[3].size = screen_height() * screen_width() * 4;
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
@@ -42,10 +63,10 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 ssize_t fs_read(int fd, void *buf, size_t len) {
-  Log("fs_read: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, len);
   // assert(file_table[fd].open_offset + len <= file_table[fd].size);
   size_t l = file_table[fd].open_offset + len <= file_table[fd].size ? len : file_table[fd].size - file_table[fd].open_offset;
-  ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
+  // ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
+  file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   Log("fs_read: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
   file_table[fd].open_offset += l;
   return l; 
@@ -59,7 +80,8 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   }
   // assert(file_table[fd].open_offset + len <= file_table[fd].size);
   size_t l = file_table[fd].open_offset + len <= file_table[fd].size ? len : file_table[fd].size - file_table[fd].open_offset;
-  ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
+  // ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
+  file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   file_table[fd].open_offset += l;
   Log("fs_write: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
   return l;

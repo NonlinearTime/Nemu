@@ -19,17 +19,6 @@ extern size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 // 返回ramdisk的大小, 单位为字节
 extern size_t get_ramdisk_size();
 
-typedef struct {
-  char *name;
-  size_t size;
-  size_t disk_offset;
-  ReadFn read;
-  WriteFn write;
-  size_t open_offset;
-} Finfo;
-
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
-
 size_t invalid_read(void *buf, size_t offset, size_t len);
 size_t invalid_write(const void *buf, size_t offset, size_t len);
 
