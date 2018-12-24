@@ -25,6 +25,6 @@ enum {
 };
 
 extern char end;
-static intptr_t program_brk = -1;
+intptr_t program_brk = -1;
 
 #endif
