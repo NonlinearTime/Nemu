@@ -19,7 +19,7 @@ _Context* do_syscall(_Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  Log("do_syscall: %d %d %d %d\n", c->GPR1, c->GPR2, c->GPR3, c->GPR4);
+  // Log("do_syscall: %d %d %d %d\n", c->GPR1, c->GPR2, c->GPR3, c->GPR4);
 
   switch (a[0]) {
     case SYS_yield: c->GPR1 = sys_yield(); break;
@@ -49,9 +49,9 @@ size_t sys_write(int fd, void *buf, size_t count) {
 }
 
 size_t sys_brk(void * addr) {
-  Log("sys_brk: addr %d\n", addr);
+  // Log("sys_brk: addr %d\n", addr);
   program_brk = (intptr_t)addr;
-  Log("sys_brk: new_program_brk %d\n", addr);
+  // Log("sys_brk: new_program_brk %d\n", addr);
   return 0;
 }
 
