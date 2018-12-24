@@ -42,7 +42,7 @@ void *_sbrk(intptr_t increment){
   char buf[30];
   buf[29] = '\0';
   sprintf(buf, "SRK: %p\n",program_brk);
-  _write(1, buf, 9);
+  _write(1, buf, 10);
   void* program_brk_old = program_brk;
   if (_syscall_(SYS_brk, program_brk + increment, 0, 0) == 0) 
     return (void *)program_brk_old;
