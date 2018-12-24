@@ -38,7 +38,7 @@ int _write(int fd, void *buf, size_t count){
 
 void *_sbrk(intptr_t increment){
   // printf("SRK: %p\n",program_brk);
-  if (program_brk == 0) program_brk = end;
+  if (program_brk == (void *)-1) program_brk = end;
   char buf[30];
   buf[29] = '\0';
   sprintf(buf, "SRK: %p\n",(void *)(int)end);
