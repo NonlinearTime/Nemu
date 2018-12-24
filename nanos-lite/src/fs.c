@@ -64,7 +64,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 ssize_t fs_read(int fd, void *buf, size_t len) {
-  Log("fs_read: 0x%x length: 0x%x\n", file_table[fd].disk_offset + file_table[fd].open_offset, file_table[fd].size);
+  Log("fs_read: 0x%x length: 0x%x\n", file_table[fd].open_offset, len);
   assert(file_table[fd].open_offset + len < file_table[fd].size);
   ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
   return len; 
