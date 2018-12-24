@@ -28,6 +28,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   fs_read(fd, buf, len);
   memcpy((void *)s, buf , len);
+  fs_close(fd);
 
   // Log("file length: 0x%x\n", len);
   // fs_read(fd, buf, len);
