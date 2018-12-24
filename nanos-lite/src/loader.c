@@ -16,7 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   uint32_t len = fs_filesz(fd);
   
-  char buf[1000];
+  char buf[10000];
   uint32_t s = DEFAULT_ENTRY;
   // ramdisk_read(buf, 0, len);
   Log("file length: 0x%x\n", len);
