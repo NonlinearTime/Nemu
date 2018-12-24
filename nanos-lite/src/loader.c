@@ -13,16 +13,13 @@ extern size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  Log("fuck1\n");
   int fd = fs_open(filename, 0, 0);
-  Log("fuck2\n");
   uint32_t len = fs_filesz(fd);
-  Log("fuck3\n");
+  Log("file length: 0x%x\n", len);
   char buf[len];
   uint32_t s = DEFAULT_ENTRY;
   // ramdisk_read(buf, 0, len);
   fs_read(fd, buf, len);
-  Log("fuck14\n");
   
   memcpy((void *)s, buf, len);
   return DEFAULT_ENTRY;
