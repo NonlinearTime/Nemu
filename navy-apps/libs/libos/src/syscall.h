@@ -25,6 +25,6 @@ enum {
 };
 
 extern char end;
-volatile void * program_brk = (void *)-1;
+volatile intptr_t program_brk = -1;
 
 #endif

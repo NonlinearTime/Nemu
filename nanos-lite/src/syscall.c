@@ -47,7 +47,7 @@ size_t sys_write(int fd, void *buf, size_t count) {
 }
 
 size_t sys_brk(void * addr) {
-  program_brk = addr;
+  program_brk = (intptr_t)addr;
   return 0;
 }
 
