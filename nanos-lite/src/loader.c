@@ -15,10 +15,11 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   uint32_t len = fs_filesz(fd);
-  Log("file length: 0x%x\n", len);
+  
   char buf[len];
   uint32_t s = DEFAULT_ENTRY;
   // ramdisk_read(buf, 0, len);
+  Log("file length: 0x%x\n", len);
   fs_read(fd, buf, len);
   
   memcpy((void *)s, buf, len);
