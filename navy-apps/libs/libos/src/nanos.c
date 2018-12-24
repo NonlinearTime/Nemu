@@ -36,7 +36,6 @@ int _write(int fd, void *buf, size_t count){
   // return 0;
 }
 
-intptr_t program_brk = -1;
 
 void *_sbrk(intptr_t increment){
   // printf("SRK: %p\n",program_brk);
