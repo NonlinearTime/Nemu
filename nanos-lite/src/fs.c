@@ -49,6 +49,7 @@ void init_fs() {
     file_table[i].open_offset = 0;
   }
   file_table[3].size = screen_height() * screen_width() * 4;
+  file_table[1].size = file_table[2].size = 0x7fffffff;
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
