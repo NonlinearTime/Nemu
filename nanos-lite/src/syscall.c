@@ -1,10 +1,15 @@
 #include "common.h"
 #include "syscall.h"
+#include "fs.h"
 
 uintptr_t sys_yield();
 void sys_exit(int code);
 size_t sys_write(int fd, void *buf, size_t count);
 size_t sys_brk(void * addr);
+int sys_open(const char *pathname, int flags, int mode);
+ssize_t sys_read(int fd, void *buf, size_t len);
+off_t sys_lseek(int fd, off_t offset, int whence);
+int sys_close(int fd);
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -19,6 +24,10 @@ _Context* do_syscall(_Context *c) {
     case SYS_exit: sys_exit(a[1]); break;
     case SYS_write: c->GPR1 = sys_write(a[1], (void *)a[2], a[3]); break;
     case SYS_brk: c->GPR1 = sys_brk((void *)a[1]); break;
+    case SYS_open:  c->GPR1 = sys_open((char *)a[1], a[2], a[3]) ; break;
+    case SYS_read:  c->GPR1 = sys_read(a[1], (void *)a[2], a[3]) ; break;
+    case SYS_close: c->GPR1 = sys_close(a[1]) ; break;
+    case SYS_lseek:  c->GPR1 = sys_lseek(a[1], a[2], a[3]); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   return NULL;
@@ -34,6 +43,7 @@ void sys_exit(int code) {
 }
 
 size_t sys_write(int fd, void *buf, size_t count) {
+  if (fd == 0) return 0;
   if (fd == 1 || fd == 2) {
     size_t i;
     for (i = 0; i < count; ++i) {
@@ -41,6 +51,8 @@ size_t sys_write(int fd, void *buf, size_t count) {
     }
     // Log("sys_write\n");
     return i;
+  } else {
+    return fs_write(fd, buf, count);
   }
   return 0;
 }
@@ -48,4 +60,18 @@ size_t sys_write(int fd, void *buf, size_t count) {
 size_t sys_brk(void * addr) {
   program_brk = addr;
   return 0;
+}
+
+int sys_open(const char *pathname, int flags, int mode) {
+  return fs_open(pathname, flags, mode);
+}
+
+ssize_t sys_read(int fd, void *buf, size_t len) {
+  return fs_read(fd, buf, len);
+}
+off_t sys_lseek(int fd, off_t offset, int whence) {
+  return fs_lseek(fd, offset, whence);
+}
+int sys_close(int fd) {
+  return fs_close(fd);
 }
