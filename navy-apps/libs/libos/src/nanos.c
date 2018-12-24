@@ -44,7 +44,7 @@ void *_sbrk(intptr_t increment){
   char buf[30];
   buf[29] = '\0';
   sprintf(buf, "SRK: %p %d\n",program_brk, increment);
-  _write(1, buf, 13);
+  _write(1, buf, 20);
   intptr_t program_brk_old = program_brk;
   if (_syscall_(SYS_brk, program_brk + increment, 0, 0) == 0) 
     return (void *)program_brk_old;
