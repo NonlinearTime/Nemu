@@ -80,7 +80,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   // ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   file_table[fd].open_offset += l;
-  Log("fs_write: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
+  // Log("fs_write: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
   return l;
 }
 
