@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   uint32_t blen = 1024;
   uintptr_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
+  Log("loader: len %d\n", len);
   char buf[blen];
   while (len > blen) {
     fs_read(fd, buf, blen);
