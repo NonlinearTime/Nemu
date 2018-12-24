@@ -26,6 +26,6 @@ enum {
 
 
 extern char end;
-static volatile void * program_brk = 0;
+static volatile void * program_brk = (void *)-1;
 
 #endif
