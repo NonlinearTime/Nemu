@@ -35,9 +35,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     uint64_t hi = uptime.hi;
     uint64_t lo = uptime.lo;
     l = sprintf(buffer, "t %d\n", hi << 32 | lo);
+    Log("events_read: %d\n", len);
   } else {
     if (kbd.keydown) l = sprintf(buffer, "kd %s\n", keyname[kbd.keycode]);
     else l = sprintf(buffer, "ku %s\n", keyname[kbd.keycode]);
+    Log("events_read: %d\n", len);
   }
   Log("events_read: %d\n", len);
   l = l <= len ? l : len;
