@@ -14,6 +14,7 @@ int main() {
         printf("%c|", *(p-1));
         if(ch == '\n') {
           *p = '\0';
+          printf("\n");
           break;
         }
       }
