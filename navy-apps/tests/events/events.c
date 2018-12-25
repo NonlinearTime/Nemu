@@ -17,7 +17,7 @@ int main() {
           break;
         }
       }
-      printf("%p %p\n, p, buf");
+      printf("%p %p\n", p, buf);
       printf("receive event: %s", buf);
       j = 0;
     }
