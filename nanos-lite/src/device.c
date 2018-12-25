@@ -41,11 +41,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     }
   }
 
-  Log("events_read: %d\n", l);
+  Log("events_read: %d", l);
   // l = l <= len ? l : len;
   // sprintf(buf, "kd %d\n", 0);
   // strncpy(buf, buffer, l);
-  Log("events_read: %d\n", strlen(buf));
+  Log("events_read: %d", strlen(buf));
   return strlen(buf);
 }
 
