@@ -30,7 +30,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if ((kc & 0xfff) == _KEY_NONE) {
     uint32_t ut = uptime();
     l = sprintf(buf, "t %d\n", ut);
-    Log("events_read: time: %d", ut);
+    Log("events_read: %s", buf);
   } else {
     if (kc & 0x8000) {
       l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
