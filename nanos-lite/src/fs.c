@@ -77,7 +77,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   else file_table[fd].read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, l);
   // Log("fs_read: %s offset: 0x%x length: 0x%x\n", file_table[fd].name, file_table[fd].open_offset, l);
   file_table[fd].open_offset += l;
-  return l; 
+  return len; 
 }
 
 ssize_t fs_write(int fd, const void *buf, size_t len) {
