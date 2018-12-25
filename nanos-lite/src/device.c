@@ -29,6 +29,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   input->read(_DEV_INPUT, &kbd, 4);
   Log("events_read: %d\n", len);
   char buffer[128];
+  Log("events_read: %d\n", len);
   int l;
   if (kbd.keycode == _KEY_NONE) {
     uint64_t hi = uptime.hi;
