@@ -26,6 +26,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/fb",0, 0, invalid_read, fb_write},
   {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write},
   {"/dev/events", 0, 0, events_read, invalid_write}, 
+  {"/dev/tty", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -45,7 +46,7 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   int i;
-  for (i = 6; i < NR_FILES; ++i) {
+  for (i = 7; i < NR_FILES; ++i) {
     file_table[i].read = (ReadFn)ramdisk_read;
     file_table[i].write = (WriteFn)ramdisk_write;
     file_table[i].open_offset = 0;

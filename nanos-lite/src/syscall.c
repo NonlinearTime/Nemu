@@ -1,6 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 #include "fs.h"
+#include "proc.h"
 
 uintptr_t sys_yield();
 void sys_exit(int code);
@@ -10,6 +11,8 @@ int sys_open(const char *pathname, int flags, int mode);
 ssize_t sys_read(int fd, void *buf, size_t len);
 off_t sys_lseek(int fd, off_t offset, int whence);
 int sys_close(int fd);
+int sys_execve(const char *filename, char *const argv[], char *const envp[]);
+extern void naive_uload(PCB *pcb, const char *filename);
 
 intptr_t program_brk;
 
@@ -30,6 +33,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_read:  c->GPR1 = sys_read(a[1], (void *)a[2], a[3]) ; break;
     case SYS_close: c->GPR1 = sys_close(a[1]) ; break;
     case SYS_lseek:  c->GPR1 = sys_lseek(a[1], a[2], a[3]); break;
+    case SYS_execve: c->GPR1 = sys_execve((char *)a[1], NULL, NULL); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   return NULL;
@@ -41,7 +45,8 @@ uintptr_t sys_yield() {
 }
 
 void sys_exit(int code) {
-  _halt(code);
+  // _halt(code);
+  sys_execve("/bin/init", NULL, NULL);
 }
 
 size_t sys_write(int fd, void *buf, size_t count) {
@@ -67,4 +72,9 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 }
 int sys_close(int fd) {
   return fs_close(fd);
+}
+
+int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+  naive_uload(NULL, filename);
+  return 0;
 }
