@@ -26,7 +26,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   // _device(1)->read(_DEVREG_TIMER_UPTIME, &uptime, 4);
   // _device(2)->read(_DEVREG_INPUT_KBD, &kbd, 4);
   Log("events_read: %d\n", len);
-  // char buffer[128];
+  char buffer[128];
   // Log("events_read: %d\n", len);
   // Log("kbd: %d %d\n", kbd.keycode, kbd.keydown);
 
@@ -35,14 +35,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   
   if ((kc & 0xfff) == _KEY_NONE) {
     uint32_t ut = uptime();
-    l = sprintf(buf, "t %d\n", ut);
+    l = sprintf(buffer, "t %d\n", ut);
     Log("events_read: time: %d", ut);
   } else {
     if (kc & 0x8000) {
-      l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
+      l = sprintf(buffer, "kd %s\n", keyname[kc & 0xfff]);
       Log("events_read: key down: %s", keyname[kc & 0xfff]);
     } else {
-      l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
+      l = sprintf(buffer, "ku %s\n", keyname[kc & 0xfff]);
       Log("events_read: key up: %s", keyname[kc & 0xfff]);
     }
   }
@@ -70,7 +70,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   //   _putc(*(p - 1));
   // }
   // *(char *)buf = '\0';
-  *(char *)(buf + l) = '\0';
+  strncpy(buf, buffer, l);
   Log("events_read: %d\n", l);
   return l;
 }
