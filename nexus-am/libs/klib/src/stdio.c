@@ -5,7 +5,7 @@
 
 int printf(const char *fmt, ...) {
   int i = 0;
-  char buffer[128];
+  char buffer[1024];
   va_list args;
   va_start(args,fmt);
   vsprintf(buffer,fmt,args);
@@ -107,7 +107,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       }
     }
   }
-  *buffer = '\0';
+  *buffer++ = '\0';
 
   return buffer - out;
 }
