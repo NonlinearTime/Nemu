@@ -32,6 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   // Log("kbd: %d %d\n", kbd.keycode, kbd.keydown);
 
   int kc = read_key(), l;
+  Log("events_read: kc: %d", kc);
   
   if (kc == _KEY_NONE) {
     uint32_t ut = uptime();
