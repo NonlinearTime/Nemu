@@ -25,6 +25,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   _Device *input = _device(_DEV_INPUT);
   timmer->read(_DEVREG_TIMER_UPTIME, &uptime, 4);
   input->read(_DEV_INPUT, &kbd, 4);
+  Log("events_read: %d\n", len);
   char buffer[128];
   int l;
   if (kbd.keycode == _KEY_NONE) {
