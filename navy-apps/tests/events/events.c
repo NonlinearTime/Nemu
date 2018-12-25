@@ -11,13 +11,13 @@ int main() {
       // printf("fuckl!\n");
       while ((ch = fgetc(fp)) != -1) {
         *p ++ = ch;
-        printf("%c|", *(p-1));
+        // printf("%c|", *(p-1));
         if(ch == '\n') {
           *p = '\0';
           break;
         }
       }
-      printf("%p %p\n", p, buf);
+      // printf("%p %p\n", p, buf);
       printf("receive event: %s", buf);
       j = 0;
     }

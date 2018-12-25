@@ -43,7 +43,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
   Log("events_read: %d\n", len);
   l = l <= len ? l : len;
-  sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
+  sprintf(buf, "kd %d\n", 0);
   // strncpy(buf, t, 20);
   Log("events_read: %d\n", l);
   return l;
