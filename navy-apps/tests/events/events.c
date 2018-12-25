@@ -19,7 +19,7 @@ int main() {
         }
       }
       p = buf;
-      while(*p++) printf("%c", *(p-1));
+      while(*p++) printf("1");
       printf("%p %s\n", p, buf);
       // printf("receive event: %s", buf);
       j = 0;
