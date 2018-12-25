@@ -5,7 +5,7 @@ int main() {
   volatile int j = 0;
   while(1) {
     j ++;
-    if (j == 1000) {
+    if (j == 100000) {
       char buf[256];
       char *p = buf, ch;
       // printf("fuckl!\n");
