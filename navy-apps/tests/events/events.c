@@ -8,23 +8,23 @@ int main() {
     if (j == 1000000) {
       char buf[256];
       char *p = buf, ch;
-      printf("fuck\n");
+      // printf("fuck\n");
       while ((ch = fgetc(fp)) != -1) {
         *p ++ = ch;
-        printf("%c|", *(p-1));
+        // printf("%c|", *(p-1));
         if(ch == '\n') {
           *p = '\0';
-          printf("\n");
+          // printf("\n");
           break;
         }
       }
       p = buf;
-      if (*p == 0) {printf("0 ");}
-      printf("%p %s\n", p, buf);
-      int i = 0;
-      for (i = 0 ; i < 256; ++i) printf("%d ", buf[i]);
-      printf("\n");
-      // printf("receive event: %s", buf);
+      // if (*p == 0) {printf("0 ");}
+      // printf("%p %s\n", p, buf);
+      // int i = 0;
+      // for (i = 0 ; i < 256; ++i) printf("%d ", buf[i]);
+      // printf("\n");
+      printf("receive event: %s", buf);
       j = 0;
     }
   }

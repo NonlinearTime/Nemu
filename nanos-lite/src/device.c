@@ -48,7 +48,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   // sprintf(buf, "kd %d\n", 0);
   // strncpy(buf, buffer, l);
   Log("events_read: %d", strlen(buf));
-  return l - 1;
+  return l;
 }
 
 static char dispinfo[128] __attribute__((used));
