@@ -21,12 +21,10 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t events_read(void *buf, size_t offset, size_t len) {
   _KbdReg kbd;
   _UptimeReg uptime;
-  _Device *timmer = _device(1);
-  _Device *input = _device(2);
-  Log("events_read: %p %p\n", timmer, input);
+  // Log("events_read: %p %p\n", timmer, input);
   // assert(0);
-  timmer->read(_DEVREG_TIMER_UPTIME, &uptime, 4);
-  input->read(_DEVREG_INPUT_KBD, &kbd, 4);
+  _device(1)->read(_DEVREG_TIMER_UPTIME, &uptime, 4);
+  _device(2)->read(_DEVREG_INPUT_KBD, &kbd, 4);
   Log("events_read: %d\n", len);
   char buffer[128];
   Log("events_read: %d\n", len);
