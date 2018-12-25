@@ -34,6 +34,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if (kbd.keycode == _KEY_NONE) {
     uint64_t hi = uptime.hi;
     uint64_t lo = uptime.lo;
+    Log("events_read: hi %d lo %d\n", hi, lo);
     l = sprintf(buffer, "t %d\n", hi << 32 | lo);
     Log("events_read: %d\n", len);
   } else {
