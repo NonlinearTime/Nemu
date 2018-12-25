@@ -32,4 +32,5 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void timer_init() {
+  init_time = inl(0x48);
 }
