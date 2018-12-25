@@ -25,7 +25,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  strncpy(buf, dispinfo + offset, 20);
+  strncpy(buf, dispinfo + offset, len);
   Log("dispinfo_read: %s offset: %d len: %d", buf, offset, len);  
   return len;
 }
@@ -44,6 +44,6 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
-  sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n\0", screen_width(), screen_height());
-  Log("dispinfo_read: %s", dispinfo);  
+  int r = sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n\0", screen_width(), screen_height());
+  Log("dispinfo_read: %s %d\n", dispinfo, r);  
 }
