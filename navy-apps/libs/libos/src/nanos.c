@@ -41,7 +41,7 @@ static intptr_t program_brk_old = -1;
 void *_sbrk(intptr_t increment){
   // printf("SRK: %p\n",program_brk);
   
-  if (program_brk_old == -1) program_brk_old = end;
+  if (program_brk_old == -1) program_brk_old = &end;
   char buf[40];
   buf[39] = '\0';
   sprintf(buf, "SRK: 0x%x %d %p\n",program_brk_old, increment, &end);
