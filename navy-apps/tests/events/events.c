@@ -11,6 +11,7 @@ int main() {
       // printf("fuckl!\n");
       while ((ch = fgetc(fp)) != -1) {
         *p ++ = ch;
+        printf("%c\n", ch);
         if(ch == '\n') {
           *p = '\0';
           break;

@@ -25,7 +25,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stderr", 0, 0, invalid_read, serial_write},
   {"/dev/fb",0, 0, invalid_read, fb_write},
   {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write},
-  {"/dev/events", 128, 0, events_read, invalid_write}, 
+  {"/dev/events", 0, 0, events_read, invalid_write}, 
   {"/dev/tty", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
@@ -53,7 +53,7 @@ void init_fs() {
   }
   file_table[3].size = screen_height() * screen_width() * 4;
   Log("init_fs: %d\n", file_table[3].size);
-  file_table[0].size = file_table[1].size = file_table[2].size  = 0x7fffffff;
+  file_table[0].size = file_table[1].size = file_table[2].size = file_table[5].size = 0x7fffffff;
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
