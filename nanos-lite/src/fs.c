@@ -30,6 +30,11 @@ static Finfo file_table[] __attribute__((used)) = {
 #include "files.h"
 };
 
+size_t evnt_read(void *buf, size_t offset, size_t len) {
+  size_t ret = events_read(buf, offset, len);
+  fs_lseek(5, 0, SEEK_SET);
+  return ret;
+}
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
