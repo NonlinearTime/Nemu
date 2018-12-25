@@ -34,7 +34,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   int kc = read_key(), l;
   Log("events_read: kc: %d", kc);
   
-  if (kc == _KEY_NONE) {
+  if ((kc & 0xfff) == _KEY_NONE) {
     uint32_t ut = uptime();
     l = sprintf(buffer, "t %d\n", ut);
     Log("events_read: time: %d", ut);
