@@ -44,12 +44,12 @@ void *_sbrk(intptr_t increment){
   if (program_brk_old == -1) program_brk_old = end;
   char buf[30];
   buf[29] = '\0';
-  sprintf(buf, "SRK: %p %d\n",program_brk, increment);
+  sprintf(buf, "SRK: 0x%x %d\n",program_brk_old, increment);
   _write(1, buf, 20);
   intptr_t ret = program_brk_old;
   program_brk_old += increment;
   if (_syscall_(SYS_brk, program_brk_old, 0, 0) == 0)  {
-    sprintf(buf, "SRK: %p %d\n",program_brk, increment);
+    sprintf(buf, "new SRK: 0x%x %d\n",program_brk_old, increment);
     _write(1, buf, 20);
     return (void *)ret;
   } else return (void *)-1;
