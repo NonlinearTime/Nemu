@@ -52,7 +52,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     *(char *)buf++ = buffer[i];
   }
   Log("events_read: %d\n", l);
-  return len;
+  return l;
 }
 
 static char dispinfo[128] __attribute__((used));
