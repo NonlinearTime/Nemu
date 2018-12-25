@@ -36,7 +36,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
     } else {
-      l = sprintf(buf, "ku %s\n", buf);
+      l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
     }
   }
