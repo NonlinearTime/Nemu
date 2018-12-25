@@ -19,8 +19,11 @@ int main() {
         }
       }
       p = buf;
-      if (*p == 0) {printf("0");}
+      if (*p == 0) {printf("0 ");}
       printf("%p %s\n", p, buf);
+      int i = 0;
+      for (i = 0 ; i < 256; ++i) printf("%c", buf[i]);
+      printf("\n");
       // printf("receive event: %s", buf);
       j = 0;
     }
