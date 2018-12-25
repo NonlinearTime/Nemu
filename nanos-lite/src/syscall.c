@@ -75,6 +75,7 @@ int sys_close(int fd) {
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
+  printf("%s\n",filename);
   naive_uload(NULL, filename);
   return 0;
 }
