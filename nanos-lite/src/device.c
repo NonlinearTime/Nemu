@@ -23,7 +23,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   _UptimeReg uptime;
   _Device *timmer = _device(1);
   _Device *input = _device(2);
-  printf("events_read: %p %p\n", timmer, input);
+  Log("events_read: %p %p\n", timmer, input);
   // assert(0);
   timmer->read(_DEVREG_TIMER_UPTIME, &uptime, 4);
   input->read(_DEVREG_INPUT_KBD, &kbd, 4);
@@ -37,7 +37,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     uint64_t hi = uptime.hi;
     uint64_t lo = uptime.lo;
     Log("events_read: hi %d lo %d\n", hi, lo);
-    l = sprintf(buffer, "t %d\n", hi << 32 | lo);
+    l = sprintf(buffer, "t %u\n", hi << 32 | lo);
     Log("events_read: %d\n", len);
   } else {
     
