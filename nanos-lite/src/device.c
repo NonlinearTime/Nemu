@@ -40,6 +40,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     Log("events_read: %d\n", len);
   } else {
     Log("events_read: %d\n", len);
+    printf("%s\n", keyname[kbd.keycode]);
     if (kbd.keydown) l = sprintf(buffer, "kd %s\n", keyname[kbd.keycode]);
     else l = sprintf(buffer, "ku %s\n", keyname[kbd.keycode]);
     Log("events_read: %d\n", len);
