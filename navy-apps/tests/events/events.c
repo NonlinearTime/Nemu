@@ -6,7 +6,7 @@ int main() {
   while(1) {
     j ++;
     if (j == 1000000) {
-      char buf[1024];
+      char buf[256];
       char *p = buf, ch;
       // printf("fuckl!\n");
       while ((ch = fgetc(fp)) != -1) {
@@ -18,6 +18,8 @@ int main() {
           break;
         }
       }
+      p = buf;
+      while(*p++) printf("%c", *(p-1));
       printf("%p %s\n", p, buf);
       // printf("receive event: %s", buf);
       j = 0;
