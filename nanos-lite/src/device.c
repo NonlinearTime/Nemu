@@ -19,35 +19,26 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-
-  Log("events_read: %d\n", len);
-  // char buffer[128];
-
-
+  char buffer[128];
   int kc = read_key(), l;
   Log("events_read: kc: %d", kc);
   
   if ((kc & 0xfff) == _KEY_NONE) {
     uint32_t ut = uptime();
-    l = sprintf(buf, "t %d\n", ut);
+    l = sprintf(buffer, "t %d\n", ut);
     Log("events_read: %s", buf);
-    printf("events_read: %s", buf);
   } else {
     if (kc & 0x8000) {
-      l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
+      l = sprintf(buffer, "kd %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
     } else {
-      l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
+      l = sprintf(buffer, "ku %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
-      printf("events_read: %s", buf);
     }
   }
-
+  l = l <= len ? l : len;
+  strncpy(buf, buffer, l);
   Log("events_read: %d", l);
-  // l = l <= len ? l : len;
-  // sprintf(buf, "kd %d\n", 0);
-  // strncpy(buf, buffer, l);
-  Log("events_read: %d", strlen(buf));
   return l;
 }
 
