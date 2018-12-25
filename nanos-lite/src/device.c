@@ -45,6 +45,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   l = l <= len ? l : len;
 
   strncpy(buf, buffer, l);
+  *(char *)(buf + l) = -1;
   // Log("events_read: %d\n", l);
   return l;
 }
