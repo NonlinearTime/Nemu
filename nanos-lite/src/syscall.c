@@ -45,8 +45,8 @@ uintptr_t sys_yield() {
 }
 
 void sys_exit(int code) {
-  // _halt(code);
-  sys_execve("/bin/init", NULL, NULL);
+  _halt(code);
+  // sys_execve("/bin/init", NULL, NULL);
 }
 
 size_t sys_write(int fd, void *buf, size_t count) {
@@ -75,7 +75,7 @@ int sys_close(int fd) {
 }
 
 int sys_execve(const char *filename, char *const argv[], char *const envp[]) {
-  printf("%s\n",filename);
+  // printf("%s\n",filename);
   naive_uload(NULL, filename);
   return 0;
 }
