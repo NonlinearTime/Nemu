@@ -45,8 +45,8 @@ uintptr_t sys_yield() {
 }
 
 void sys_exit(int code) {
-  _halt(code);
-  // sys_execve("/bin/init", NULL, NULL);
+  // _halt(code);
+  sys_execve("/bin/init", NULL, NULL);
 }
 
 size_t sys_write(int fd, void *buf, size_t count) {
