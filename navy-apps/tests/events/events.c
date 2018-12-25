@@ -8,7 +8,7 @@ int main() {
     if (j == 1000000) {
       char buf[256];
       char *p = buf, ch;
-      // printf("fuckl!\n");
+      printf("\n");
       while ((ch = fgetc(fp)) != -1) {
         *p ++ = ch;
         printf("%c|", *(p-1));
