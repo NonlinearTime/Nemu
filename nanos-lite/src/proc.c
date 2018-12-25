@@ -22,7 +22,7 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  naive_uload(&pcb_boot, "/bin/pal");
+  naive_uload(&pcb_boot, "/bin/events");
 }
 
 _Context* schedule(_Context *prev) {
