@@ -39,8 +39,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     l = sprintf(buffer, "t %d\n", hi << 32 | lo);
     Log("events_read: %d\n", len);
   } else {
-    Log("events_read: %d\n", len);
+    
     printf("%s\n", keyname[kbd.keycode]);
+    Log("events_read: %d\n", len);
     if (kbd.keydown) l = sprintf(buffer, "kd %s\n", keyname[kbd.keycode]);
     else l = sprintf(buffer, "ku %s\n", keyname[kbd.keycode]);
     Log("events_read: %d\n", len);
