@@ -50,7 +50,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   l = l <= len ? l : len;
   int i;
   for (i = 0; i < l; ++i) {
-    *(char *)p++ = buffer[i];
+    *p++ = buffer[i];
+    _putc(*(p - 1));
   }
   // *(char *)buf = '\0';
   Log("events_read: %d\n", l);
