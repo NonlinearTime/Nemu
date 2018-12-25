@@ -5,10 +5,10 @@ int main() {
   volatile int j = 0;
   while(1) {
     j ++;
-    if (j == 1) {
+    if (j == 1000000) {
       char buf[256];
       char *p = buf, ch;
-      printf("fuckl!\n");
+      // printf("fuckl!\n");
       while ((ch = fgetc(fp)) != -1) {
         *p ++ = ch;
         if(ch == '\n') {
