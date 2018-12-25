@@ -4,9 +4,9 @@ typedef struct {
   char *name;
   size_t size;
   size_t disk_offset;
+  size_t open_offset;
   ReadFn read;
   WriteFn write;
-  size_t open_offset;
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
@@ -22,13 +22,13 @@ size_t evnt_read(void *buf, size_t offset, size_t len);
 /* This is the information about all files in disk. */
 
 static Finfo file_table[] __attribute__((used)) = {
-  {"stdin", 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, invalid_read, serial_write},
-  {"stderr", 0, 0, invalid_read, serial_write},
-  {"/dev/fb",0, 0, invalid_read, fb_write},
-  {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write},
-  {"/dev/events", 0x7fffffff, 0, events_read, invalid_write}, 
-  {"/dev/tty", 0, 0, invalid_read, serial_write},
+  {"stdin", 0, 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, 0, invalid_read, serial_write},
+  {"stderr", 0, 0, 0, invalid_read, serial_write},
+  {"/dev/fb",0, 0, 0, invalid_read, fb_write},
+  {"/proc/dispinfo", 128, 0, 0, dispinfo_read, invalid_write},
+  {"/dev/events", 0x7fffffff, 0, 0, events_read, invalid_write}, 
+  {"/dev/tty", 0, 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 

@@ -38,6 +38,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     } else {
       l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
+      printf("events_read: %s", buf);
     }
   }
 
@@ -46,7 +47,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   // sprintf(buf, "kd %d\n", 0);
   // strncpy(buf, buffer, l);
   Log("events_read: %d", strlen(buf));
-  return strlen(buf);
+  return len;
 }
 
 static char dispinfo[128] __attribute__((used));
