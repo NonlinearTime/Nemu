@@ -23,9 +23,9 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-  naive_uload(&pcb_boot, "/bin/init");
-  // context_kload(&pcb[0], (void *)hello_fun);
-  // switch_boot_pcb();
+  // naive_uload(&pcb_boot, "/bin/init");
+  context_kload(&pcb[0], (void *)hello_fun);
+  switch_boot_pcb();
 }
 
 _Context* schedule(_Context *prev) {

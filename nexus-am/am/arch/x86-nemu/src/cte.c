@@ -20,7 +20,7 @@ void irq0();
 
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
-  printf("irq_handle:\n");
+  // printf("irq_handle:\n");
   // printf("eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%x, eflags: 0x%x\n", 
   // tf->eax, tf->ecx, tf->edx, tf->ebx, tf->esp, tf->ebp, tf->esi, tf->edi, tf->eflags);
   // printf("esp: 0x%x, prot: 0x%x, edi: 0x%x, esi: 0x%x, ebp: 0x%x, ori_esp: 0x%x, ebx: 0x%x, edx: 0x%x, ecx: 0x%x, eax: 0x%x, irq: 0x%x, err: 0x%x, eip: 0x%x, cs: 0x%x, eflags: 0x%x\n", 
