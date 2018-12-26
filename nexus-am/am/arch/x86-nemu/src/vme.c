@@ -1,4 +1,6 @@
 #include <x86.h>
+#include <klib.h>
+
 
 #define PG_ALIGN __attribute((aligned(PGSIZE)))
 
@@ -80,5 +82,19 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
-  return NULL;
+  printf("_ucontext: ustack.start: 0x%x ustack.end: 0x%x\n", ustack.start, ustack.end);
+  _Context* cp = (_Context *)(ustack.end - sizeof(_Context) - 12);
+  printf("_ucontext: p: 0x%x size: %d\n", cp, sizeof(_Context));
+  void *t = ustack.end - 12;
+  while(t != ustack.end) {
+    *(char *)t = 0;
+    t++;
+  }
+
+  cp->cs = 8;
+  cp->eflags = 2;
+  cp->eip = (uint32_t)entry;
+
+  *(uintptr_t *)ustack.start = (uintptr_t)cp; 
+  return cp;
 }
