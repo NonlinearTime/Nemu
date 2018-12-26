@@ -27,6 +27,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     uint32_t ut = uptime();
     l = sprintf(buffer, "t %d\n", ut);
     Log("events_read: %s", buf);
+    for (int i = 0 ; i < l; ++i) {
+      printf("%c ", *(char *)(buf + i));
+    }
   } else {
     if (kc & 0x8000) {
       l = sprintf(buffer, "kd %s\n", keyname[kc & 0xfff]);
