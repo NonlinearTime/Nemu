@@ -13,6 +13,7 @@ off_t sys_lseek(int fd, off_t offset, int whence);
 int sys_close(int fd);
 int sys_execve(const char *filename, char *const argv[], char *const envp[]);
 extern void naive_uload(PCB *pcb, const char *filename);
+extern _Context* schedule(_Context *prev);
 
 intptr_t program_brk;
 
