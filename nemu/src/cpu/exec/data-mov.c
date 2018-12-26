@@ -80,19 +80,6 @@ make_EHelper(cwtl) {
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
 }
 
-// make_EHelper(cwtl) {
-//   if (decoding.is_operand_size_16) {
-//     rtl_shli(&reg_l(R_EAX), &reg_l(R_EAX), 24);
-//     rtl_sari(&reg_l(R_EAX), &reg_l(R_EAX), 8);
-//     rtl_shri(&reg_l(R_EAX), &reg_l(R_EAX), 16);
-//   }
-//   else {
-//     rtl_sext(&reg_l(R_EAX), &reg_l(R_EAX), 2);
-//   }
-
-//   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
-// }
-
 make_EHelper(movsx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   rtl_sext(&t0, &id_src->val, id_src->width);
