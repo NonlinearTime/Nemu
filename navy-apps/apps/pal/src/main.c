@@ -555,6 +555,9 @@ main_loop() {
    //PAL_TrademarkScreen();
    //PAL_SplashScreen();
 
+   PAL_TrademarkScreen();
+   PAL_SplashScreen();
+
    //
    // Run the main game routine
    //
