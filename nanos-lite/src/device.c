@@ -21,7 +21,7 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t events_read(void *buf, size_t offset, size_t len) {
   // char buffer[128];
   int kc = read_key(), l;
-  Log("events_read: kc: %d", kc);
+  Log("events_read: len: %d", len);
   
   if ((kc & 0xfff) == _KEY_NONE) {
     uint32_t ut = uptime();

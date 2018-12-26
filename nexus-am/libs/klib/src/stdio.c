@@ -90,7 +90,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         case 's':
           stemp=(char*)va_arg(ap,char*);
           strcpy(buffer,stemp);
-          buffer+=strlen(stemp) - 1;
+          buffer+=strlen(stemp);
           break;
         case 'c':
           ctemp=va_arg(ap,int);
