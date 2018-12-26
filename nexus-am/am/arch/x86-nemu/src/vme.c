@@ -83,9 +83,9 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
   printf("_ucontext: ustack.start: 0x%x ustack.end: 0x%x\n", ustack.start, ustack.end);
-  _Context* cp = (_Context *)(ustack.end - sizeof(_Context) - 12);
+  _Context* cp = (_Context *)(ustack.end - sizeof(_Context) - 16);
   printf("_ucontext: p: 0x%x size: %d\n", cp, sizeof(_Context));
-  void *t = ustack.end - 12;
+  void *t = ustack.end - 16;
   while(t != ustack.end) {
     *(char *)t = 0;
     t++;
