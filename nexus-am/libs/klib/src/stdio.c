@@ -63,7 +63,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int width = 0;
   char apd = ' ';
 
-  for(index=0;index<fmt_length;++index)
+  for(index=0;index<fmt_length+1;++index)
   {
     // _putc(fmt[index]);
     if(fmt[index]!='%')
