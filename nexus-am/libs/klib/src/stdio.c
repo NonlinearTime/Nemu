@@ -63,7 +63,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int width = 0;
   char apd = ' ';
 
-  for(index=0;index<fmt_length;++index)
+  for(index=0;index<=fmt_length;++index)
   {
     // _putc(fmt[index]);
     if(fmt[index]!='%')
@@ -107,7 +107,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       }
     }
   }
-  *(buffer++) = '\0';
 
   return strlen(out);
 }
