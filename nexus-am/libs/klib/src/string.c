@@ -5,7 +5,7 @@
 size_t strlen(const char *s) {
   int i = 0;
   while (s[i++]);
-  return i;
+  return --i;
 }
 
 char *strcpy(char* dst,const char* src) {
