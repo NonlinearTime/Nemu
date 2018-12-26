@@ -27,22 +27,13 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     uint32_t ut = uptime();
     l = sprintf(buf, "t %d\n", ut);
     Log("events_read: %s", buf);
-    for (int i = 0 ; i < l; ++i) {
-      printf("%d ", *(char *)(buf + i));
-    }
   } else {
     if (kc & 0x8000) {
       l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
-      for (int i = 0 ; i <= l; ++i) {
-      printf("%d ", *(char *)(buf + i));
-    }
     } else {
       l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
       Log("events_read: %s", buf);
-      for (int i = 0 ; i <= l; ++i) {
-      printf("%d ", *(char *)(buf + i));
-    }
     }
   }
   // l = l <= len ? l : len;
