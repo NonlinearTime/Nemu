@@ -15,7 +15,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   int len = fs_filesz(fd);
-  uint32_t blen = pcb->as.pgsize;
+  int blen = pcb->as.pgsize;
   
   // uintptr_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
@@ -23,7 +23,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   char buf[blen];
   while (len > 0) {
     void* page_base = new_page(1);
-    printf("loader: page_base %p\n", page_base);
+    Log("loader: page_base %p\n", page_base);
     _map(&pcb->as, NULL, page_base, 0);
     fs_read(fd, buf, blen);
     memcpy(page_base, buf , blen);
