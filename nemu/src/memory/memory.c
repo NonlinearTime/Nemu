@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "memory/mmu.h"
 
 #define PMEM_SIZE (128 * 1024 * 1024)
 
@@ -8,6 +9,23 @@
     })
 
 uint8_t pmem[PMEM_SIZE];
+
+paddr_t page_translate(paddr_t addr) {
+  if (!cpu.cr0.paging) return addr;
+  paddr_t dir = (addr >> 22) & 0x3ff;
+  paddr_t page = (addr >> 12) & 0x3ff;
+  paddr_t offset = addr & 0xfff;
+  paddr_t PDT_base = cpu.cr3.val;
+  PDE pde;
+  pde.val = paddr_read(PDT_base + 4 * dir, 4);
+  assert(pde.present);
+  PTE pte;
+  pte.val = paddr_read(pde.page_frame + 4 * page, 4);
+  assert(pte.present);
+  paddr_t paddr = (pte.page_frame) | offset;
+  return paddr;
+}
+
 
 /* Memory accessing interfaces */
 
@@ -29,9 +47,21 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  return paddr_read(addr, len);
+  int data_cross = (addr % PAGE_SIZE + len) > PAGE_SIZE;
+  if (data_cross) {
+    assert(0);
+  } else {
+    paddr_t paddr = page_translate(addr);
+    return paddr_read(paddr, len);
+  }
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  paddr_write(addr, data, len);
+  int data_cross = (addr % PAGE_SIZE + len) > PAGE_SIZE;
+  if (data_cross) {
+    assert(0);
+  } else {
+    paddr_t paddr = page_translate(addr);
+    paddr_write(paddr, data, len);
+  }
 }

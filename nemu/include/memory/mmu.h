@@ -67,6 +67,8 @@ typedef union PageTableEntry {
 } PTE;
 
 typedef PTE (*PT) [NR_PTE];
+typedef PDE (*PDT) [NR_PDE];
+
 
 typedef union GateDescriptor {
   struct {

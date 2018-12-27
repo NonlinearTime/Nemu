@@ -21,13 +21,27 @@ make_EHelper(lidt) {
 }
 
 make_EHelper(mov_r2cr) {
-  TODO();
+  switch(id_dest->reg) {
+    case 0: t0 = cpu.cr0.val; break;
+    case 1: t0 = cpu.cr1; break;
+    case 2: t0 = cpu.cr2; break;
+    case 3: t0 = cpu.cr3.val; break;
+    default: assert(0);
+  }
+  operand_write(id_dest, &t0);
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
 
 make_EHelper(mov_cr2r) {
-  TODO();
+  switch(id_src->reg) {
+    case 0: t0 = cpu.cr0.val; break;
+    case 1: t0 = cpu.cr1; break;
+    case 2: t0 = cpu.cr2; break;
+    case 3: t0 = cpu.cr3.val; break;
+    default: assert(0);
+  }
+  operand_write(id_dest, &t0);
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
