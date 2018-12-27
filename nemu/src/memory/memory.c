@@ -56,7 +56,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     assert(0);
   } else {
     paddr_t paddr = page_translate(addr);
-    Log("vaddr_read: 0x%x", paddr);
+    // Log("vaddr_read: 0x%x", paddr);
     return paddr_read(paddr, len);
   }
 }
