@@ -16,16 +16,16 @@ paddr_t page_translate(paddr_t addr) {
   paddr_t dir = (addr >> 22) & 0x3ff;
   paddr_t page = (addr >> 12) & 0x3ff;
   paddr_t offset = addr & 0xfff;
-  paddr_t PDT_base = cpu.cr3.val;
+  paddr_t PDT_base = cpu.cr3.page_directory_base;
   Log("page_translate: dir: 0x%x page: 0x%x offset: 0x%x PDT_base: 0x%x\n", dir, page, offset, PDT_base);
   PDE pde;
-  pde.val = paddr_read(PDT_base + 4 * dir, 4);
+  pde.val = paddr_read((PDT_base << 12) + (dir << 2), 4);
   assert(pde.present);
   PTE pte;
   Log("page_translate: page_frame: 0x%x\n", pde.page_frame);
-  pte.val = paddr_read(pde.page_frame + 4 * page, 4);
+  pte.val = paddr_read((pde.page_frame << 12) + (page << 4), 4);
   assert(pte.present);
-  paddr_t paddr = (pte.page_frame) | offset;
+  paddr_t paddr = (pte.page_frame << 12) | offset;
   return paddr;
 }
 
