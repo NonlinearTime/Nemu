@@ -31,6 +31,7 @@ make_EHelper(mov_r2cr) {
   operand_write(id_dest, &t0);
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
+  print_asm("movl %%%s,%%cr%d %d", reg_name(id_src->reg, 4), id_dest->reg, t0);
 }
 
 make_EHelper(mov_cr2r) {
@@ -42,8 +43,9 @@ make_EHelper(mov_cr2r) {
     default: assert(0);
   }
   operand_write(id_dest, &t0);
-
+  
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
+  print_asm("movl %%cr%d,%%%s %d", id_src->reg, reg_name(id_dest->reg, 4), t0);
 
 #if defined(DIFF_TEST)
   difftest_skip_ref();
