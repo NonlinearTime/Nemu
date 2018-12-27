@@ -10,6 +10,8 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used));
 static PCB pcb_boot;
 PCB *current;
 
+extern char end;
+
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -27,6 +29,7 @@ void init_proc() {
   // naive_uload(&pcb_boot, "/bin/init");
   // context_kload(&pcb[0], (void *)hello_fun);
   context_uload(&pcb[1], "/bin/pal");
+  pcb[1].cur_brk = pcb[1].max_brk = (uintptr_t)&end;
   pcb_boot = pcb[1];
   switch_boot_pcb();
 }
