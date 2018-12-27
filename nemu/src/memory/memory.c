@@ -12,7 +12,7 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(paddr_t addr) {
   if (!cpu.cr0.paging) return addr;
-  Log("page_translate: cr0.paging: %d\n", cpu.cr0.paging);
+  Log("page_translate: addr: 0x%d\n", addr);
   paddr_t dir = (addr >> 22) & 0x3ff;
   paddr_t page = (addr >> 12) & 0x3ff;
   paddr_t offset = addr & 0xfff;
