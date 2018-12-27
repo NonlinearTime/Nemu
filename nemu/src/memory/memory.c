@@ -16,7 +16,7 @@ paddr_t page_translate(paddr_t addr) {
   paddr_t dir = (addr >> 22) & 0x3ff;
   paddr_t page = (addr >> 12) & 0x3ff;
   paddr_t offset = addr & 0xfff;
-  paddr_t PDT_base = cpu.cr3.val;
+  paddr_t PDT_base = cpu.cr3.page_directory_base;
   PDE pde;
   pde.val = paddr_read(PDT_base + 4 * dir, 4);
   assert(pde.present);
