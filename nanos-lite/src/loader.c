@@ -15,7 +15,7 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   int len = fs_filesz(fd);
-  int blen = pcb->as.pgsize;
+  int blen = pcb->as.pgsize = PGSIZE;
   
   // uintptr_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
