@@ -27,7 +27,6 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  Log("xor:\n");
   interpret_rtl_xor(&t0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t0);
 
