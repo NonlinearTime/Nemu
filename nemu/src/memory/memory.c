@@ -26,6 +26,7 @@ paddr_t page_translate(paddr_t addr) {
   pte.val = paddr_read((pde.page_frame << 12) + (page << 4), 4);
   assert(pte.present);
   paddr_t paddr = (pte.page_frame << 12) | offset;
+  Log("page_translate: paddr: 0x%x\n", paddr);
   return paddr;
 }
 
