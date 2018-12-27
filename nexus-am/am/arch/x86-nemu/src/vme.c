@@ -86,18 +86,18 @@ void _switch(_Context *c) {
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
   PDE *updir = (PDE *)(p->ptr);
-  intptr_t paddr = (intptr_t) pa;
-  PDE pde = updir[DIR_BITS(paddr)];
+  intptr_t vaddr = (intptr_t) va;
+  PDE pde = updir[DIR_BITS(vaddr)];
   if ((pde & 0x1) == 0) {
     PTE *upt = (PTE *)(pgalloc_usr(1));
     printf("_map: upt %p\n", upt);
     pde = ((PDE)upt & 0xfffff000) | 0x1;
-    updir[DIR_BITS(paddr)] = pde;
+    updir[DIR_BITS(vaddr)] = pde;
   }
   PTE *upt = (PTE *)(FRAME_BITS(pde) << 12);
-  PTE pte = upt[PAGE_BITS(paddr)];
+  PTE pte = upt[PAGE_BITS(vaddr)];
   if ((pte & 0x1) == 0) {
-    upt[PAGE_BITS(paddr)] |= 0x1;
+    upt[PAGE_BITS(vaddr)] = ((PTE)pa & 0xfffff000) | 0x1;
   }
 
   return 0;

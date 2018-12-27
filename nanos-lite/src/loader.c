@@ -17,17 +17,17 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int len = fs_filesz(fd);
   int blen = pcb->as.pgsize = PGSIZE;
   
-  // uintptr_t s = DEFAULT_ENTRY;
+  uintptr_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
   Log("loader: len 0x%x\n", len);
   char buf[blen];
   while (len > 0) {
     void* page_base = new_page(1);
     Log("loader: page_base %p\n", page_base);
-    _map(&pcb->as, NULL, page_base, 0);
+    _map(&pcb->as, (void *)s, page_base, 0);
     fs_read(fd, buf, blen);
     memcpy(page_base, buf , blen);
-    // s += blen;
+    s += blen;
     len -= blen;
   }
 
