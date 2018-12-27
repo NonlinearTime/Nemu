@@ -19,6 +19,9 @@ _Area segments[] = {      // Kernel memory mappings
 #define OFFSET_BITS(paddr) (paddr & 0x3ff)
 #define FRAME_BITS(paddr) ((paddr >> 12) & 0xfffff)
 
+#define MAP_TEST 1
+#define MAP_CREATE 2
+
 
 
 int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
@@ -88,19 +91,28 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
   PDE *updir = (PDE *)(p->ptr);
   intptr_t vaddr = (intptr_t) va;
   PDE pde = updir[DIR_BITS(vaddr)];
-  if ((pde & 0x1) == 0) {
-    PTE *upt = (PTE *)(pgalloc_usr(1));
-    printf("_map: upt %p\n", upt);
-    pde = ((PDE)upt & 0xfffff000) | 0x1;
-    updir[DIR_BITS(vaddr)] = pde;
+  if (mode == MAP_CREATE) {
+    if ((pde & 0x1) == 0) {
+      PTE *upt = (PTE *)(pgalloc_usr(1));
+      printf("_map: upt %p\n", upt);
+      pde = ((PDE)upt & 0xfffff000) | 0x1;
+      updir[DIR_BITS(vaddr)] = pde;
+    }
+    PTE *upt = (PTE *)(FRAME_BITS(pde) << 12);
+    PTE pte = upt[PAGE_BITS(vaddr)];
+    if ((pte & 0x1) == 0) {
+      upt[PAGE_BITS(vaddr)] = ((PTE)pa & 0xfffff000) | 0x1;
+    }
+  } else if (mode == MAP_TEST) {
+    if ((pde & 0x1) == 0) return 0;
+    else {
+      PTE *upt = (PTE *)(FRAME_BITS(pde) << 12);
+      PTE pte = upt[PAGE_BITS(vaddr)];
+      if ((pte & 0x1) == 0) return 0;
+    }
+    return 1;
   }
-  PTE *upt = (PTE *)(FRAME_BITS(pde) << 12);
-  PTE pte = upt[PAGE_BITS(vaddr)];
-  if ((pte & 0x1) == 0) {
-    upt[PAGE_BITS(vaddr)] = ((PTE)pa & 0xfffff000) | 0x1;
-  }
-
-  return 0;
+  return 1;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {

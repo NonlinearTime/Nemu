@@ -3,6 +3,9 @@
 
 #define DEFAULT_ENTRY 0x8048000
 
+#define MAP_TEST 1
+#define MAP_CREATE 2
+
 // 从ramdisk中`offset`偏移处的`len`字节读入到`buf`中
 extern size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
@@ -24,7 +27,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   while (len > 0) {
     void* page_base = new_page(1);
     Log("loader: page_base %p\n", page_base);
-    _map(&pcb->as, (void *)s, page_base, 0);
+    _map(&pcb->as, (void *)s, page_base, MAP_CREATE);
     fs_read(fd, buf, blen);
     memcpy(page_base, buf , blen);
     s += blen;
