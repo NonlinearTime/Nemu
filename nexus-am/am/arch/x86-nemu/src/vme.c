@@ -121,5 +121,6 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
   cp->prot = p;
 
   *(uintptr_t *)ustack.start = (uintptr_t)cp; 
+  printf("_ucontext: fuck\n");
   return cp;
 }
