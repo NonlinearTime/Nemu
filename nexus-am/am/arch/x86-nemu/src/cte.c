@@ -9,6 +9,9 @@ void vecsys();
 void vecnull();
 void irq0();
 
+void get_cur_as(_Context *c);
+void _switch(_Context *c);
+
 // struct _Context {
 //   uintptr_t esp;
 //   struct _Protect *prot;
@@ -20,6 +23,7 @@ void irq0();
 
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
+  get_cur_as(tf);
   // printf("irq_handle:\n");
   // printf("eax: 0x%x, ecx: 0x%x, edx: 0x%x, ebx: 0x%x, esp: 0x%x, ebp: 0x%x, esi: 0x%x, edi: 0x%x, eflags: 0x%x\n", 
   // tf->eax, tf->ecx, tf->edx, tf->ebx, tf->esp, tf->ebp, tf->esi, tf->edi, tf->eflags);
@@ -43,6 +47,7 @@ _Context* irq_handle(_Context *tf) {
     }
   }
 
+  _switch(next);
   return next;
 }
 

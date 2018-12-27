@@ -1,7 +1,7 @@
 #include "proc.h"
 #include "fs.h"
 
-#define DEFAULT_ENTRY 0x4000000
+#define DEFAULT_ENTRY 0x8048000
 
 // 从ramdisk中`offset`偏移处的`len`字节读入到`buf`中
 extern size_t ramdisk_read(void *buf, size_t offset, size_t len);
@@ -15,19 +15,21 @@ extern size_t get_ramdisk_size();
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   uint32_t len = fs_filesz(fd);
-  uint32_t blen = 1024;
-  uintptr_t s = DEFAULT_ENTRY;
+  uint32_t blen = pcb->as.pgsize;
+  
+  // uintptr_t s = DEFAULT_ENTRY;
   // // ramdisk_read(buf, 0, len);
   Log("loader: len 0x%x\n", len);
   char buf[blen];
-  while (len > blen) {
+  while (len > 0) {
+    void* page_base = new_page(1);
+    _map(&pcb->as, NULL, page_base, 0);
     fs_read(fd, buf, blen);
-    memcpy((void *)s, buf , blen);
-    s += blen;
+    memcpy(page_base, buf , blen);
+    // s += blen;
     len -= blen;
   }
-  fs_read(fd, buf, len);
-  memcpy((void *)s, buf , len);
+
   fs_close(fd);
 
   // Log("file length: 0x%x\n", len);

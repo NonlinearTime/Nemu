@@ -14,6 +14,12 @@ _Area segments[] = {      // Kernel memory mappings
 };
 
 #define NR_KSEG_MAP (sizeof(segments) / sizeof(segments[0]))
+#define DIR_BITS(paddr) ((paddr >> 22) & 0x3ff)
+#define PAGE_BITS(paddr) ((paddr >> 12) & 0x3ff)
+#define OFFSET_BITS(paddr) (paddr & 0x3ff)
+#define FRAME_BITS(paddr) ((paddr >> 12) & 0xfffff)
+
+
 
 int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
   pgalloc_usr = pgalloc_f;
@@ -78,10 +84,25 @@ void _switch(_Context *c) {
 }
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
+  PDE *updir = (PDE *)(p->ptr);
+  intptr_t paddr = (intptr_t) pa;
+  PDE pde = updir[DIR_BITS(paddr)];
+  if ((pde & 0x1) == 0) {
+    PTE *upt = (PTE *)(pgalloc_usr(1));
+    pde = ((PDE)upt << 12) | 0x1;
+    updir[DIR_BITS(paddr)] = pde;
+  }
+  PTE *upt = (PTE *)FRAME_BITS(pde);
+  PTE pte = upt[PAGE_BITS(paddr)];
+  if ((pte & 0x1) == 0) {
+    upt[PAGE_BITS(paddr)] |= 0x1;
+  }
+
   return 0;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
+  _protect(p);
   printf("_ucontext: ustack.start: 0x%x ustack.end: 0x%x\n", ustack.start, ustack.end);
   _Context* cp = (_Context *)(ustack.end - sizeof(_Context) - 16);
   printf("_ucontext: p: 0x%x size: %d\n", cp, sizeof(_Context));
@@ -94,6 +115,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
   cp->cs = 8;
   cp->eflags = 2;
   cp->eip = (uint32_t)entry;
+  cp->prot = p;
 
   *(uintptr_t *)ustack.start = (uintptr_t)cp; 
   return cp;
