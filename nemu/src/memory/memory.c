@@ -50,7 +50,7 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  Log("vaddr_read: 0x%x", addr);
+  // Log("vaddr_read: 0x%x", addr);
   int data_cross = (addr % PAGE_SIZE + len) > PAGE_SIZE;
   if (data_cross) {
     assert(0);
@@ -62,7 +62,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  Log("vaddr_write: 0x%x", addr);
+  // Log("vaddr_write: 0x%x", addr);
   int data_cross = (addr % PAGE_SIZE + len) > PAGE_SIZE;
   if (data_cross) {
     assert(0);
