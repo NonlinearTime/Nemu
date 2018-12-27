@@ -91,10 +91,10 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
   if ((pde & 0x1) == 0) {
     PTE *upt = (PTE *)(pgalloc_usr(1));
     printf("_map: upt %p\n", upt);
-    pde = ((PDE)upt << 12) | 0x1;
+    pde = ((PDE)upt & 0xfffff000) | 0x1;
     updir[DIR_BITS(paddr)] = pde;
   }
-  PTE *upt = (PTE *)FRAME_BITS(pde);
+  PTE *upt = (PTE *)(FRAME_BITS(pde) << 12);
   PTE pte = upt[PAGE_BITS(paddr)];
   if ((pte & 0x1) == 0) {
     upt[PAGE_BITS(paddr)] |= 0x1;
