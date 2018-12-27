@@ -27,6 +27,7 @@ int mm_brk(uintptr_t new_brk) {
     if (_map(&current->as, (void *)vaddr_start, NULL, MAP_TEST)) vaddr_start += current->as.pgsize;
     while (vaddr_start < new_brk) {
       void* page_base = new_page(1);
+      Log("mm_brk: vaddr_start 0x%x new_brk 0x%x\n", vaddr_start, new_brk);
       _map(&current->as, (void *)vaddr_start, page_base, MAP_CREATE);
       vaddr_start += current->as.pgsize;
     }
