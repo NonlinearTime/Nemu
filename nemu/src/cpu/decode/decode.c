@@ -117,7 +117,6 @@ static inline make_DopHelper(O) {         //used for lea?
  */
 make_DHelper(G2E) {
   decode_op_rm(eip, id_dest, true, id_src, true); // id_dest <- dest_reg / mem, id_src <- src_reg (R/M mode)
-  Log("xor\n");
 }
 
 make_DHelper(mov_G2E) {
