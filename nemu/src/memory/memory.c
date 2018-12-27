@@ -12,11 +12,12 @@ uint8_t pmem[PMEM_SIZE];
 
 paddr_t page_translate(paddr_t addr) {
   if (!cpu.cr0.paging) return addr;
-  Log("page_translate: addr: 0x%d\n", addr);
+  Log("page_translate: addr: 0x%x\n", addr);
   paddr_t dir = (addr >> 22) & 0x3ff;
   paddr_t page = (addr >> 12) & 0x3ff;
   paddr_t offset = addr & 0xfff;
-  paddr_t PDT_base = cpu.cr3.page_directory_base;
+  paddr_t PDT_base = cpu.cr3.val;
+  Log("page_translate: dir: 0x%x page: 0x%x offset: 0x%x PDT_base: 0x%x\n", dir, page, offset, PDT_base);
   PDE pde;
   pde.val = paddr_read(PDT_base + 4 * dir, 4);
   assert(pde.present);
