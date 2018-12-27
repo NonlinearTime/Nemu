@@ -89,6 +89,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
   PDE pde = updir[DIR_BITS(paddr)];
   if ((pde & 0x1) == 0) {
     PTE *upt = (PTE *)(pgalloc_usr(1));
+    printf("_map: upt %p\n", upt);
     pde = ((PDE)upt << 12) | 0x1;
     updir[DIR_BITS(paddr)] = pde;
   }
