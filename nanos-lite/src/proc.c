@@ -9,7 +9,7 @@ void context_uload(PCB *pcb, const char *filename);
 static PCB pcb[MAX_NR_PROC] __attribute__((used));
 static PCB pcb_boot;
 PCB *current;
-static int count = 0;
+// static int count = 0;
 
 void switch_boot_pcb() {
   current = &pcb_boot;
@@ -34,19 +34,20 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
-  if (current == &pcb[1]) {
-    count++;
-    current->cp = prev;
-    current = &pcb[1];
-  }
-  if (count == 100) {
-    count = 0;
-    current->cp = prev;
-    current = &pcb[0];
-  }
+  // if (current == &pcb[1]) {
+  //   count++;
+  //   current->cp = prev;
+  //   current = &pcb[1];
+  // }
+  // if (count == 100) {
+  //   count = 0;
+  //   current->cp = prev;
+  //   current = &pcb[0];
+  // }
   
-  // 
-  // current->cp = prev;
+  // count++;
+  current->cp = prev;
+  current = &pcb[1];
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
   
 
