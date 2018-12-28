@@ -260,6 +260,7 @@ void exec_wrapper(bool print_flag) {
 
   #define IRQ_TIMER 32
 
+  Log("intr: %d if: %d\n", cpu.INTR, cpu.IF);
   if (cpu.INTR & cpu.IF) {
     cpu.INTR = false;
     Log("fuck!\n");
