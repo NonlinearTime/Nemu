@@ -35,13 +35,13 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
   current->cp = prev;
-  current = &pcb[1];
+  current = &pcb[0];
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
   if (current == &pcb[1]) {
     count++;
     current = &pcb[1];
   }
-  if (count == 1000) {
+  if (count == 100) {
     count = 0;
     current->cp = prev;
     current = &pcb[0];
