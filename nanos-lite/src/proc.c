@@ -36,7 +36,7 @@ void init_proc() {
 _Context* schedule(_Context *prev) {
   if (current == &pcb[1]) {
     count++;
-    
+    current->cp = prev;
     current = &pcb[1];
   }
   if (count == 100) {
