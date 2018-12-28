@@ -37,6 +37,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         Log("F1: %p", fg_pcb);
       } else if ((kc & 0xfff) == _KEY_F2) {
         fg_pcb = pcbs[2];
+        Log("F2: %p", fg_pcb);
       }
       Log("events_read: %s", buf);
     } else {
