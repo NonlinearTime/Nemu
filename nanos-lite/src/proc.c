@@ -41,6 +41,7 @@ _Context* schedule(_Context *prev) {
   }
   if (count == 100) {
     count = 0;
+    current->cp = prev;
     current = &pcb[0];
   }
   
