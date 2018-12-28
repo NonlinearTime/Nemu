@@ -34,6 +34,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     len -= blen;
   }
   pcb->cur_brk = s;
+  Log("loader: cur_brk %p s: %p\n", pcb->cur_brk, s);
   fs_close(fd);
 
   // Log("file length: 0x%x\n", len);
