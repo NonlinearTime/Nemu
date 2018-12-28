@@ -258,7 +258,7 @@ void exec_wrapper(bool print_flag) {
  #endif 
   update_eip();
 
-  #define IRQ_TIMER 0x32
+  #define IRQ_TIMER 32
 
   if (cpu.INTR & cpu.IF) {
     cpu.INTR = false;

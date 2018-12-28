@@ -36,7 +36,7 @@ _Context* irq_handle(_Context *tf) {
     _Event ev = {0};
     printf("irq: %x\n", tf->irq);
     switch (tf->irq) {
-      case 0x32: ev.event = _EVENT_IRQ_TIMER; break;
+      case 0x20: ev.event = _EVENT_IRQ_TIMER; break;
       case 0x80: ev.event = _EVENT_SYSCALL; break;
       case 0x81: ev.event = _EVENT_YIELD; break;
       default: ev.event = _EVENT_ERROR; break;
