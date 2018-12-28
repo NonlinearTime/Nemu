@@ -8,7 +8,7 @@ void context_uload(PCB *pcb, const char *filename);
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used));
 static PCB pcb_boot;
-PCB *current;
+PCB *current, *fg_pcb;
 static int count = 0;
 
 void switch_boot_pcb() {
@@ -29,7 +29,9 @@ void init_proc() {
   // context_kload(&pcb[0], (void *)hello_fun);
   context_uload(&pcb[0], "/bin/hello");
   context_uload(&pcb[1], "/bin/pal");
-  pcb_boot = pcb[1];
+  // context_uload(&pcb[2], "/bin/slider");
+  // pcb_boot = pcb[1];
+  fg_pcb = &pcb[1];
   switch_boot_pcb();
 }
 
