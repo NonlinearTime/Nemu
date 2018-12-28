@@ -8,7 +8,7 @@ static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
   void *p = pf;
-  printf("new_page: pf %p heap_end %p\n", pf, _heap.end);
+  Log("new_page: pf %p heap_end %p\n", pf, _heap.end);
   pf += PGSIZE * nr_page;
   assert(pf < (void *)_heap.end);
   return p;
