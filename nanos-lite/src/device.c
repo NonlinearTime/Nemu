@@ -34,6 +34,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
       if ((kc & 0xfff) == _KEY_F1) {
         fg_pcb = pcbs[1];
+        Log("F1: %p", fg_pcb);
       } else if ((kc & 0xfff) == _KEY_F2) {
         fg_pcb = pcbs[2];
       }
