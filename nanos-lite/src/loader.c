@@ -26,7 +26,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   char buf[blen];
   while (len > 0) {
     void* page_base = new_page(1);
-    Log("loader: page_base %p\n", page_base);
+    Log("loader: page_base %p s: %p\n", page_base, s);
     _map(&pcb->as, (void *)s, page_base, MAP_CREATE);
     fs_read(fd, buf, blen);
     memcpy(page_base, buf , blen);
