@@ -4,7 +4,7 @@
 // #include <stdio.h>
 #define TIMER_PORT 0x48
 
-static uint32_t init_time = 0;
+static uint32_t init_time;
 
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
