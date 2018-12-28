@@ -40,7 +40,7 @@ static intptr_t program_brk_old = &end;
 
 void *_sbrk(intptr_t increment){
   // printf("SRK: %p\n",program_brk);
-  
+  if (increment == 0) assert(0);
   if (program_brk_old == -1) program_brk_old = &end;
   char buf[40];
   buf[39] = '\0';
