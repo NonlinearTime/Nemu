@@ -61,7 +61,14 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
   // Log("vaddr_read: 0x%x", addr);
   int data_cross = (addr % PAGE_SIZE + len) > PAGE_SIZE;
   if (data_cross) {
-    Log("vaddr_read: addr: 0x%x len %d", addr, len);
+    
+    int prev = PAGE_SIZE - addr % PAGE_SIZE;
+    int last = len - prev;
+    uint32_t p = paddr_read(page_translate(addr), prev);
+    uint32_t l = paddr_read(page_translate(addr + prev), last);
+    Log("vaddr_read: addr: 0x%x prev %d last %d", addr, prev, last);
+    uint32_t ret = (l << (8 * prev)) | p; 
+    Log("vaddr_read: addr: 0x%x p 0x%x l 0x%x res 0x%x", addr, p, l, ret);
     assert(0);
   } else {
     paddr_t paddr = page_translate(addr);
