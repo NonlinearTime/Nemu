@@ -73,6 +73,8 @@ typedef struct {
       uint32_t cr1, cr2;
       CR0 cr0;
       CR3 cr3;
+
+      bool INTR;
     };
   };
 

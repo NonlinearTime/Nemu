@@ -129,6 +129,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 
   cp->cs = 8;
   cp->eflags = 2;
+  cp->eflags |= 0x400;
   cp->eip = (uint32_t)entry;
   cp->prot = p;
 
