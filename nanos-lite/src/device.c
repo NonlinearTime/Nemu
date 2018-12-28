@@ -1,5 +1,7 @@
 #include "common.h"
 #include <amdev.h>
+#include "proc.h"
+
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   size_t i;
@@ -30,6 +32,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   } else {
     if (kc & 0x8000) {
       l = sprintf(buf, "kd %s\n", keyname[kc & 0xfff]);
+      if ((kc & 0xfff) == _KEY_F1) {
+        fg_pcb = pcbs[1];
+      } else if ((kc & 0xfff) == _KEY_F2) {
+        fg_pcb = pcbs[2];
+      }
       Log("events_read: %s", buf);
     } else {
       l = sprintf(buf, "ku %s\n", keyname[kc & 0xfff]);
